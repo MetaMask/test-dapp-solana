@@ -1,13 +1,19 @@
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { WalletDisconnectButton, WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
 import { type FC, useMemo } from 'react';
+// Dirty fix specific to Bun. TODO: Improve it
+import { Buffer } from 'buffer';
+globalThis.Buffer = Buffer;
 
 // Default styles that can be overridden by your app
 import '@solana/wallet-adapter-react-ui/styles.css';
-import { UnifiedWalletButton, UnifiedWalletProvider } from '@jup-ag/wallet-adapter';
 import { SendSOLToRandomAddress } from './components/SendSol';
+
+import { MetaMaskWalletAdapter } from './metamask-wallet-adapter/adapter';
+import { registerMetaMaskWalletAdapter } from './metamask-wallet-adapter/wallet';
+import { LedgerWalletAdapter, PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
 
 export const App: FC = () => {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
@@ -16,9 +22,12 @@ export const App: FC = () => {
   // You can also provide a custom RPC endpoint.
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
+  void registerMetaMaskWalletAdapter();
+
   const wallets = useMemo(
     () => [
-      // new PhantomWalletAdapter(),
+      new PhantomWalletAdapter(),
+      new LedgerWalletAdapter(),
       // new TorusWalletAdapter(),
       // new TrustWalletAdapter(),
       // new MathWalletAdapter({ endpoint }),
@@ -30,6 +39,7 @@ export const App: FC = () => {
       // new SafePalWalletAdapter({ endpoint }),
       // new BitpieWalletAdapter({ endpoint }),
       // new BitgetWalletAdapter({ endpoint }),
+      new MetaMaskWalletAdapter(),
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -40,37 +50,11 @@ export const App: FC = () => {
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
-            <WalletMultiButton />
-            <UnifiedWalletProvider
-              wallets={wallets}
-              config={{
-                autoConnect: false,
-                env: 'mainnet-beta',
-                metadata: {
-                  name: 'UnifiedWallet',
-                  description: 'UnifiedWallet',
-                  url: 'https://jup.ag',
-                  iconUrls: ['https://jup.ag/favicon.ico'],
-                },
-                walletlistExplanation: {
-                  href: 'https://station.jup.ag/docs/additional-topics/wallet-list',
-                },
-                // walletPrecedence: ['MetaMask'],
-                hardcodedWallets: [
-                  {
-                    id: 'MetaMask',
-                    name: 'MetaMask' as any,
-                    url: 'https://metamask.io',
-                    icon: 'https://cdn.iconscout.com/icon/free/png-512/metamask-2728406-2261817.png',
-                  },
-                ],
-                theme: 'dark',
-                lang: 'en',
-              }}
-            >
-              <UnifiedWalletButton />
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px', gap: '10px', width: '100vw' }}>
+              <WalletMultiButton />
+              <WalletDisconnectButton />
               <SendSOLToRandomAddress />
-            </UnifiedWalletProvider>
+            </div>
           </WalletModalProvider>
         </WalletProvider>
       </ConnectionProvider>
