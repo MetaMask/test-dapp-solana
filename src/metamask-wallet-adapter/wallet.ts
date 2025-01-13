@@ -1,4 +1,3 @@
-import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { SOLANA_DEVNET_CHAIN, SOLANA_MAINNET_CHAIN, SOLANA_TESTNET_CHAIN } from '@solana/wallet-standard-chains';
 import {
   SolanaSignAndSendTransaction,
@@ -58,7 +57,7 @@ export class MetaMaskWallet implements Wallet {
   readonly icon: WalletIcon = icon;
   readonly chains: IdentifierArray = [SOLANA_MAINNET_CHAIN, SOLANA_DEVNET_CHAIN, SOLANA_TESTNET_CHAIN];
 
-  metaMaskSdk: MetaMaskSdk | null = null;
+  metaMaskSdk: MetaMaskSdk;
 
   get features(): StandardConnectFeature &
     StandardDisconnectFeature &
@@ -100,6 +99,10 @@ export class MetaMaskWallet implements Wallet {
     return this.metaMaskSdk ? this.metaMaskSdk.accounts : [];
   }
 
+  constructor() {
+    this.metaMaskSdk = new MetaMaskSdk();
+  }
+
   #on: StandardEventsOnMethod = (event, listener) => {
     if (this.#listeners[event]) {
       this.#listeners[event].push(listener);
@@ -120,13 +123,6 @@ export class MetaMaskWallet implements Wallet {
   }
 
   #connect: StandardConnectMethod = async () => {
-    if (!this.metaMaskSdk) {
-      /* this.metaMaskSdk.on('standard_change', (properties: StandardEventsChangeProperties) =>
-        this.emit('change', properties),
-      ); */
-      this.metaMaskSdk = new MetaMaskSdk();
-    }
-
     if (!this.accounts.length) {
       await this.metaMaskSdk.connect();
     }
@@ -135,32 +131,20 @@ export class MetaMaskWallet implements Wallet {
   };
 
   #disconnect: StandardDisconnectMethod = async () => {
-    if (!this.metaMaskSdk) {
-      return;
-    }
     // await this.metaMaskSdk.disconnect();
   };
 
   #signAndSendTransaction: SolanaSignAndSendTransactionMethod = async (/* ...inputs */) => {
-    if (!this.metaMaskSdk) {
-      throw new WalletNotConnectedError();
-    }
     // return await this.metaMaskSdk?.startSendTransactionFlow(...inputs);
     return await new Promise((_, reject) => reject(new Error('Not implemented')));
   };
 
   #signTransaction: SolanaSignTransactionMethod = async (/* ...inputs */) => {
-    if (!this.metaMaskSdk) {
-      throw new WalletNotConnectedError();
-    }
     // return await this.metaMaskSdk.standardSignTransaction(...inputs);
     return await new Promise((_, reject) => reject(new Error('Not implemented')));
   };
 
   #signMessage: SolanaSignMessageMethod = async (/* ...inputs */) => {
-    if (!this.metaMaskSdk) {
-      throw new WalletNotConnectedError();
-    }
     // return await this.metaMaskSdk.standardSignMessage(/* ...inputs */);
     return await new Promise((_, reject) => reject(new Error('Not implemented')));
   };
