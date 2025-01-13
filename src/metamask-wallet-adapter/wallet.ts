@@ -52,15 +52,12 @@ export async function registerMetaMaskWalletAdapter() {
 }
 
 export class MetaMaskWallet implements Wallet {
-  readonly listeners: { [E in StandardEventsNames]?: StandardEventsListeners[E][] } = {};
+  readonly #listeners: { [E in StandardEventsNames]?: StandardEventsListeners[E][] } = {};
   readonly version: WalletVersion = '1.0.0';
   readonly name = 'MetaMask (registered Wallet)';
   readonly icon: WalletIcon = icon;
   readonly chains: IdentifierArray = [SOLANA_MAINNET_CHAIN, SOLANA_DEVNET_CHAIN, SOLANA_TESTNET_CHAIN];
 
-  /**
-   * @deprecated replace with metaMaskSdk
-   */
   metaMaskSdk: MetaMaskSdk | null = null;
 
   get features(): StandardConnectFeature &
@@ -72,29 +69,29 @@ export class MetaMaskWallet implements Wallet {
     return {
       [StandardConnect]: {
         version: this.version,
-        connect: this.connect,
+        connect: this.#connect,
       },
       [StandardDisconnect]: {
         version: this.version,
-        disconnect: this.disconnect,
+        disconnect: this.#disconnect,
       },
       [StandardEvents]: {
         version: this.version,
-        on: this.on,
+        on: this.#on,
       },
       [SolanaSignAndSendTransaction]: {
         version: this.version,
         supportedTransactionVersions: ['legacy', 0],
-        signAndSendTransaction: this.signAndSendTransaction,
+        signAndSendTransaction: this.#signAndSendTransaction,
       },
       [SolanaSignTransaction]: {
         version: this.version,
         supportedTransactionVersions: ['legacy', 0],
-        signTransaction: this.signTransaction,
+        signTransaction: this.#signTransaction,
       },
       [SolanaSignMessage]: {
         version: this.version,
-        signMessage: this.signMessage,
+        signMessage: this.#signMessage,
       },
     };
   }
@@ -103,26 +100,26 @@ export class MetaMaskWallet implements Wallet {
     return this.metaMaskSdk ? this.metaMaskSdk.accounts : [];
   }
 
-  on: StandardEventsOnMethod = (event, listener) => {
-    if (this.listeners[event]) {
-      this.listeners[event].push(listener);
+  #on: StandardEventsOnMethod = (event, listener) => {
+    if (this.#listeners[event]) {
+      this.#listeners[event].push(listener);
     } else {
-      this.listeners[event] = [listener];
+      this.#listeners[event] = [listener];
     }
-    return (): void => this.off(event, listener);
+    return (): void => this.#off(event, listener);
   };
 
-  emit<E extends StandardEventsNames>(event: E, ...args: Parameters<StandardEventsListeners[E]>): void {
-    for (const listener of this.listeners[event] || []) {
+  #emit<E extends StandardEventsNames>(event: E, ...args: Parameters<StandardEventsListeners[E]>): void {
+    for (const listener of this.#listeners[event] || []) {
       listener.apply(null, args);
     }
   }
 
-  off<E extends StandardEventsNames>(event: E, listener: StandardEventsListeners[E]): void {
-    this.listeners[event] = this.listeners[event]?.filter((existingListener) => listener !== existingListener);
+  #off<E extends StandardEventsNames>(event: E, listener: StandardEventsListeners[E]): void {
+    this.#listeners[event] = this.#listeners[event]?.filter((existingListener) => listener !== existingListener);
   }
 
-  connect: StandardConnectMethod = async () => {
+  #connect: StandardConnectMethod = async () => {
     if (!this.metaMaskSdk) {
       /* this.metaMaskSdk.on('standard_change', (properties: StandardEventsChangeProperties) =>
         this.emit('change', properties),
@@ -137,14 +134,14 @@ export class MetaMaskWallet implements Wallet {
     return { accounts: this.accounts };
   };
 
-  disconnect: StandardDisconnectMethod = async () => {
+  #disconnect: StandardDisconnectMethod = async () => {
     if (!this.metaMaskSdk) {
       return;
     }
     // await this.metaMaskSdk.disconnect();
   };
 
-  signAndSendTransaction: SolanaSignAndSendTransactionMethod = async (/* ...inputs */) => {
+  #signAndSendTransaction: SolanaSignAndSendTransactionMethod = async (/* ...inputs */) => {
     if (!this.metaMaskSdk) {
       throw new WalletNotConnectedError();
     }
@@ -152,7 +149,7 @@ export class MetaMaskWallet implements Wallet {
     return await new Promise((_, reject) => reject(new Error('Not implemented')));
   };
 
-  signTransaction: SolanaSignTransactionMethod = async (/* ...inputs */) => {
+  #signTransaction: SolanaSignTransactionMethod = async (/* ...inputs */) => {
     if (!this.metaMaskSdk) {
       throw new WalletNotConnectedError();
     }
@@ -160,7 +157,7 @@ export class MetaMaskWallet implements Wallet {
     return await new Promise((_, reject) => reject(new Error('Not implemented')));
   };
 
-  signMessage: SolanaSignMessageMethod = async (/* ...inputs */) => {
+  #signMessage: SolanaSignMessageMethod = async (/* ...inputs */) => {
     if (!this.metaMaskSdk) {
       throw new WalletNotConnectedError();
     }

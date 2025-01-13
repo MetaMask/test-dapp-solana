@@ -1,16 +1,15 @@
 import type { WalletName } from '@solana/wallet-adapter-base';
 import {
   BaseMessageSignerWalletAdapter,
+  WalletConnectionError,
   WalletDisconnectedError,
   WalletDisconnectionError,
-  WalletError,
   WalletNotConnectedError,
   WalletPublicKeyError,
   WalletReadyState,
   WalletSendTransactionError,
   WalletSignMessageError,
   WalletSignTransactionError,
-  isIosAndRedirectable,
   isVersionedTransaction,
   type SendTransactionOptions,
 } from '@solana/wallet-adapter-base';
@@ -70,47 +69,48 @@ export class MetaMaskWalletAdapter extends BaseMessageSignerWalletAdapter {
     }
   }
 
-  async autoConnect(): Promise<void> {
-    // Skip autoconnect in the Loadable state on iOS
-    // We can't redirect to a universal link without user input
-    if (!(this.readyState === WalletReadyState.Loadable && isIosAndRedirectable())) {
-      await this.connect();
-    }
-  }
-
   async connect(): Promise<void> {
     if (this.sdk === null) {
-      throw new WalletError('MetaMask SDK not initialized');
+      throw new WalletConnectionError('MetaMask SDK not initialized');
     }
 
-    await this.sdk.connect();
+    this._connecting = true;
 
-    this._publicKey = await this.sdk.getPublicKey();
+    try {
+      await this.sdk.connect();
 
-    if (this._publicKey) {
-      this.emit('connect', this._publicKey);
-    } else {
-      console.warn('MetaMask public key not found. Please check your MetaMask installation or create an account.');
+      this._publicKey = await this.sdk.getPublicKey();
+
+      if (this._publicKey) {
+        this.emit('connect', this._publicKey);
+      } else {
+        console.warn('MetaMask public key not found. Please check your MetaMask installation or create an account.');
+      }
+    } catch (error: any) {
+      console.error('Error encountered during connection:', error);
+      throw new WalletConnectionError((error as Error).message);
+    } finally {
+      this._connecting = false;
     }
   }
 
   async disconnect(): Promise<void> {
-    const wallet = this._wallet;
-    if (wallet) {
-      wallet.off('disconnect', this._disconnected);
-      wallet.off('accountChanged', this._accountChanged);
+    if (this._wallet) {
+      this._wallet.off('disconnect', this._disconnected);
+      this._wallet.off('accountChanged', this._accountChanged);
 
       this._wallet = null;
       this._publicKey = null;
 
       try {
-        await wallet.disconnect();
+        // await this._wallet?.disconnect(); TODO: implement disconnect method
+        this._publicKey = null;
+        this._connecting = false;
+        this.emit('disconnect');
       } catch (error: any) {
-        this.emit('error', new WalletDisconnectionError(error?.message, error));
+        throw new WalletDisconnectionError(error?.message, error);
       }
     }
-
-    this.emit('disconnect');
   }
 
   async sendTransaction<T extends Transaction | VersionedTransaction>(
@@ -133,7 +133,7 @@ export class MetaMaskWalletAdapter extends BaseMessageSignerWalletAdapter {
 
         return await this.sdk?.startSendTransactionFlow();
       } catch (error: any) {
-        if (error instanceof WalletError) {
+        if (error instanceof WalletConnectionError) {
           throw error;
         }
         throw new WalletSendTransactionError(error?.message, error);
