@@ -36,6 +36,9 @@ export class MetaMaskWalletAdapter extends BaseMessageSignerWalletAdapter {
 
   constructor() {
     super();
+    if (typeof window !== 'undefined') {
+      window.addEventListener('message', this._handleMessage.bind(this));
+    }
     if (this._readyState !== WalletReadyState.Unsupported) {
       this.sdk = new MetaMaskSdk();
 
@@ -59,6 +62,16 @@ export class MetaMaskWalletAdapter extends BaseMessageSignerWalletAdapter {
 
   get readyState() {
     return this._readyState;
+  }
+
+  async _handleMessage(event: MessageEvent) {
+    if (event.data && event.data.type === 'moongate') {
+      const { command } = event.data;
+      if (command === 'disconnect') {
+        this._connecting = false;
+        await this.disconnect();
+      }
+    }
   }
 
   initReadyState() {
@@ -95,17 +108,13 @@ export class MetaMaskWalletAdapter extends BaseMessageSignerWalletAdapter {
   }
 
   async disconnect(): Promise<void> {
-    if (this._wallet) {
-      this._wallet.off('disconnect', this._disconnected);
-      this._wallet.off('accountChanged', this._accountChanged);
-
-      this._wallet = null;
-      this._publicKey = null;
-
+    if (this.sdk) {
       try {
-        // await this._wallet?.disconnect(); TODO: implement disconnect method
+        await this.sdk.disconnect();
         this._publicKey = null;
         this._connecting = false;
+        window.removeEventListener('message', this._handleMessage.bind(this));
+
         this.emit('disconnect');
       } catch (error: any) {
         throw new WalletDisconnectionError(error?.message, error);
@@ -199,6 +208,8 @@ export class MetaMaskWalletAdapter extends BaseMessageSignerWalletAdapter {
   }
 
   private _disconnected = () => {
+    console.log('event: disconnected');
+
     const wallet = this._wallet;
     if (wallet) {
       wallet.off('disconnect', this._disconnected);

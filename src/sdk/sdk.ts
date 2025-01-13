@@ -39,7 +39,13 @@ export class MetaMaskSdk {
 
     this.#accounts = await this.getAccounts();
 
+    console.log('connect: accounts', this.#accounts);
+
     return this.#accounts;
+  }
+
+  async disconnect(): Promise<void> {
+    this.#accounts = [];
   }
 
   async getPublicKey(): Promise<PublicKey | null> {
