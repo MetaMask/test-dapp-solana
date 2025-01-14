@@ -1,10 +1,6 @@
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletDisconnectButton, WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { clusterApiUrl } from '@solana/web3.js';
 import { type FC, useMemo } from 'react';
-// Dirty fix specific to Bun. TODO: Improve it
-import { Buffer } from 'buffer';
-globalThis.Buffer = Buffer;
 
 // Default styles that can be overridden by your app
 import '@solana/wallet-adapter-react-ui/styles.css';
