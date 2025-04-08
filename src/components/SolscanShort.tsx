@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface SolscanShortProps {
   content: string;
@@ -8,6 +8,7 @@ interface SolscanShortProps {
 
 export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => {
   const [copied, setCopied] = useState(false);
+  const [label, setLabel] = useState('');
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(content).then(() => {
@@ -15,6 +16,10 @@ export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => 
       setTimeout(() => setCopied(false), 2000);
     });
   };
+
+  useEffect(() => {
+    setLabel(content.slice(0, 4) + '...' + content.slice(-4));
+  }, [content]);
 
   return (
     <div
@@ -29,11 +34,11 @@ export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => 
       {
         solscanUrl ? (
           <a href={solscanUrl} target="_blank" rel="noopener noreferrer">
-            {content.slice(0, 4)}...{content.slice(-4)}
+            {label}
           </a>
         ): (
           <span>
-            {content.slice(0, 4)}...{content.slice(-4)}
+            {label}
           </span>
         )
       }
