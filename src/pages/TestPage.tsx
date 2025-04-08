@@ -1,3 +1,4 @@
+import { getChainForEndpoint } from '@solana/wallet-standard-util';
 import type { FC } from 'react';
 import { FaucetTest } from '../components/FaucetTest';
 import { Header } from '../components/Header';
@@ -7,8 +8,11 @@ import { SendSOLVersioned } from '../components/SendSolVersioned';
 import { SendWSolToAddress } from '../components/SendWSolToAddress';
 import { SignMessage } from '../components/SignMessage';
 import { Test } from '../components/Test';
+import { RPC_HTTP_ENDPOINT } from '../config';
 
 export const TestPage: FC = () => {
+  const isMainNet = getChainForEndpoint(RPC_HTTP_ENDPOINT) === 'solana:mainnet';
+
   return (
     <div style={{ padding: '1rem' }}>
       <div
@@ -25,9 +29,11 @@ export const TestPage: FC = () => {
           gap: '2rem',
         }}
       >
-        <Test key="faucet" title="Devnet Faucet">
-          <FaucetTest />
-        </Test>
+        {!isMainNet && (
+          <Test key="faucet" title="Faucet">
+            <FaucetTest />
+          </Test>
+        )}
         <Test key="signMessage" title="Sign Message">
           <SignMessage />
         </Test>
