@@ -8,6 +8,7 @@ import { SendSOLVersioned } from '../components/SendSolVersioned';
 import { SendWSolToAddress } from '../components/SendWSolToAddress';
 import { SignMessage } from '../components/SignMessage';
 import { Test } from '../components/Test';
+import { PartialSignTransaction } from '../components/PartialSignTransaction';
 import { RPC_HTTP_ENDPOINT } from '../config';
 
 export const TestPage: FC = () => {
@@ -48,6 +49,9 @@ export const TestPage: FC = () => {
         </Test>
         <Test key="transferWSOL" title="Transfert WSOL">
           <SendWSolToAddress />
+        </Test>
+        <Test key="partialSignTransaction" title="Partial Sign Transaction">
+          <PartialSignTransaction />
         </Test>
       </div>
     </div>
