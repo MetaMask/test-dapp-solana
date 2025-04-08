@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 interface SolscanShortProps {
   content: string;
-  solscanUrl: string;
+  solscanUrl?: string;
 }
 
 export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => {
@@ -26,9 +26,17 @@ export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => 
         justifyContent: 'center',
       }}
     >
-      <a href={solscanUrl} target="_blank" rel="noopener noreferrer">
-        {content.slice(0, 4)}...{content.slice(-4)}
-      </a>
+      {
+        solscanUrl ? (
+          <a href={solscanUrl} target="_blank" rel="noopener noreferrer">
+            {content.slice(0, 4)}...{content.slice(-4)}
+          </a>
+        ): (
+          <span>
+            {content.slice(0, 4)}...{content.slice(-4)}
+          </span>
+        )
+      }
       <span
         onClick={copyToClipboard}
         onKeyDown={(e) => e.key === 'Enter' && copyToClipboard()}

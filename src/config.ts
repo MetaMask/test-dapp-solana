@@ -4,10 +4,6 @@ export const WSOL_MINT = new PublicKey('So11111111111111111111111111111111111111
 
 export const RPC_HTTP_ENDPOINT: string = import.meta.env.VITE_RPC_HTTP_ENDPOINT;
 
-export const SOLSCAN_TX_URL: string = import.meta.env.VITE_SOLSCAN_TX_URL;
-
-export const SOLSCAN_ACCOUNT_URL: string = import.meta.env.VITE_SOLSCAN_ACCOUNT_URL;
-
 export const defaultAddresses: string[] = [
   'JCp15hm4zQoghYFK277XE7xBBKVxmq4NBHU6TGV29Kqt',
   '9Yog6MiFfJFBt6rcf8Gt8s6TJ2smopTQJarsvpoLfQAN',
