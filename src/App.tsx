@@ -6,10 +6,10 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 import { TestPage } from './pages/TestPage';
 
 import { CoinbaseWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { RPC_HTTP_ENDPOINT } from './config';
+import { EndpointProvider, useEndpoint } from './context/EndpointProvider';
 
-export const App: FC = () => {
-  const endpoint = RPC_HTTP_ENDPOINT;
+const AppContent: FC = () => {
+  const { endpoint } = useEndpoint();
 
   const wallets = useMemo(
     () => [new PhantomWalletAdapter(), new CoinbaseWalletAdapter({ endpoint }), new SolflareWalletAdapter()],
@@ -17,36 +17,42 @@ export const App: FC = () => {
   );
 
   return (
-    <>
-      <ConnectionProvider endpoint={endpoint} config={{ commitment: 'confirmed' }}>
-        <WalletProvider wallets={wallets} autoConnect={true}>
-          <WalletModalProvider>
+    <ConnectionProvider endpoint={endpoint} config={{ commitment: 'confirmed' }}>
+      <WalletProvider wallets={wallets} autoConnect={true}>
+        <WalletModalProvider>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              height: '100vh',
+              width: '100vw',
+              padding: '1rem',
+              boxSizing: 'border-box',
+            }}
+          >
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                height: '100vh',
-                width: '100vw',
-                padding: '1rem',
-                boxSizing: 'border-box',
+                width: '100%',
+                maxWidth: '1600px',
+                margin: '0 auto',
+                textAlign: 'center',
               }}
             >
-              <div
-                style={{
-                  width: '100%',
-                  maxWidth: '1600px',
-                  margin: '0 auto',
-                  textAlign: 'center',
-                }}
-              >
-                <TestPage />
-              </div>
+              <TestPage />
             </div>
-          </WalletModalProvider>
-        </WalletProvider>
-      </ConnectionProvider>
-    </>
+          </div>
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
+  );
+};
+
+export const App: FC = () => {
+  return (
+    <EndpointProvider>
+      <AppContent />
+    </EndpointProvider>
   );
 };

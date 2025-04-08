@@ -11,7 +11,7 @@ import { Test } from '../components/Test';
 import { RPC_HTTP_ENDPOINT } from '../config';
 
 export const TestPage: FC = () => {
-  const isDevNet = getChainForEndpoint(RPC_HTTP_ENDPOINT) === 'solana:devnet';
+  const isMainNet = getChainForEndpoint(RPC_HTTP_ENDPOINT) === 'solana:mainnet';
 
   return (
     <div style={{ padding: '1rem' }}>
@@ -29,8 +29,8 @@ export const TestPage: FC = () => {
           gap: '2rem',
         }}
       >
-        {isDevNet && (
-          <Test key="faucet" title="Devnet Faucet">
+        {!isMainNet && (
+          <Test key="faucet" title="Faucet">
             <FaucetTest />
           </Test>
         )}
