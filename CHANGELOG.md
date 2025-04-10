@@ -7,4 +7,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/MetaMask/wallet-adapter-demo/
+[Unreleased]: https://github.com/MetaMask/test-dapp-solana/

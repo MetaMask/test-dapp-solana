@@ -1,5 +1,5 @@
 import react from '@vitejs/plugin-react-swc';
-import { defineConfig, UserConfig } from 'vite';
+import { type UserConfig, defineConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 // https://vite.dev/config/
@@ -18,5 +18,5 @@ export default defineConfig({
   test: {
     // 👋 add the line below to add jsdom to vite
     environment: 'jsdom',
-  }
+  },
 } as UserConfig);

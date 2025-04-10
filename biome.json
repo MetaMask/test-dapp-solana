@@ -80,5 +80,13 @@
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": false
-  }
+  },
+  "overrides": [
+    {
+      "include": ["**/package.json"],
+      "formatter": {
+        "lineWidth": 1
+      }
+    }
+  ]
 }
