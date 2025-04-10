@@ -21,20 +21,10 @@ jobs:
       - name: Ensure `destination_dir` is not empty
         if: ${{ inputs.destination_dir == '' }}
         run: exit 1
-      - uses: actions/checkout@v4
-      - name: Install Corepack via Node
-        uses: actions/setup-node@v4
+      - name: Checkout and setup environment
+        uses: MetaMask/action-checkout-and-setup@v1
         with:
-          node-version-file: '.nvmrc'
-      - name: Install Yarn
-        run: corepack enable
-      - name: Restore Yarn cache
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
-      - name: Install dependencies via Yarn
-        run: yarn --immutable
+          is-high-risk-environment: true
       - name: Update `package.json` `homepage` field
         run: |
           sed -i 's/"homepage": ".*"/"homepage": "https:\/\/metamask.github.io\/test-dapp-multichain\/${{ inputs.destination_dir }}"/' package.json
