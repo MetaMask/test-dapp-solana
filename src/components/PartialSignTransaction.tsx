@@ -2,8 +2,8 @@ import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey, TransactionInstruction, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
 import { type FC, useCallback, useState } from 'react';
-import { Button } from './Button';
 import { defaultAddresses } from '../config';
+import { Button } from './Button';
 
 export const PartialSignTransaction: FC = () => {
   const { connection } = useConnection();

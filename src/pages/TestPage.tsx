@@ -2,13 +2,13 @@ import { getChainForEndpoint } from '@solana/wallet-standard-util';
 import type { FC } from 'react';
 import { FaucetTest } from '../components/FaucetTest';
 import { Header } from '../components/Header';
+import { PartialSignTransaction } from '../components/PartialSignTransaction';
 import { SendMemo } from '../components/SendMemo';
 import { SendSOL } from '../components/SendSol';
 import { SendSOLVersioned } from '../components/SendSolVersioned';
 import { SendWSolToAddress } from '../components/SendWSolToAddress';
 import { SignMessage } from '../components/SignMessage';
 import { Test } from '../components/Test';
-import { PartialSignTransaction } from '../components/PartialSignTransaction';
 import { RPC_HTTP_ENDPOINT } from '../config';
 
 export const TestPage: FC = () => {

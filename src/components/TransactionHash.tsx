@@ -1,5 +1,5 @@
-import type { FC } from 'react';
 import { getChainForEndpoint } from '@solana/wallet-standard-util';
+import type { FC } from 'react';
 import { useEndpoint } from '../context/EndpointProvider';
 import { SolscanShort } from './SolscanShort';
 
@@ -29,10 +29,5 @@ const getSolscanTxUrl = (endpoint: string, hash: string): string | undefined => 
 export const TransactionHash: FC<TransactionHashProps> = ({ hash }) => {
   const { endpoint } = useEndpoint();
 
-  return (
-    <SolscanShort
-      content={hash}
-      solscanUrl={getSolscanTxUrl(endpoint, hash)}
-    />
-  );
+  return <SolscanShort content={hash} solscanUrl={getSolscanTxUrl(endpoint, hash)} />;
 };

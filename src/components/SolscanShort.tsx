@@ -18,7 +18,7 @@ export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => 
   };
 
   useEffect(() => {
-    setLabel(content.slice(0, 4) + '...' + content.slice(-4));
+    setLabel(`${content.slice(0, 4)}...${content.slice(-4)}`);
   }, [content]);
 
   return (
@@ -31,17 +31,13 @@ export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => 
         justifyContent: 'center',
       }}
     >
-      {
-        solscanUrl ? (
-          <a href={solscanUrl} target="_blank" rel="noopener noreferrer">
-            {label}
-          </a>
-        ): (
-          <span>
-            {label}
-          </span>
-        )
-      }
+      {solscanUrl ? (
+        <a href={solscanUrl} target="_blank" rel="noopener noreferrer">
+          {label}
+        </a>
+      ) : (
+        <span>{label}</span>
+      )}
       <span
         onClick={copyToClipboard}
         onKeyDown={(e) => e.key === 'Enter' && copyToClipboard()}
