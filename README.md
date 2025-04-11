@@ -8,6 +8,7 @@ Demo of the Wallet Adapter and Standard using [Snap Solana Wallet](https://githu
 - [Snap Solana Wallet](https://github.com/MetaMask/snap-solana-wallet/) (snap server only)
 
 ## Getting started
+
 ```bash
 bun i
 bun dev
@@ -18,4 +19,3 @@ WIP: First install the snap by clicking on `Select Wallet`, then create a Solana
 ## Demo
 
 https://github.com/user-attachments/assets/27024b04-f3bf-4676-b192-19ad236b43fb
-

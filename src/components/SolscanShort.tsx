@@ -1,13 +1,14 @@
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface SolscanShortProps {
   content: string;
-  solscanUrl: string;
+  solscanUrl?: string;
 }
 
 export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => {
   const [copied, setCopied] = useState(false);
+  const [label, setLabel] = useState('');
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(content).then(() => {
@@ -15,6 +16,10 @@ export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => 
       setTimeout(() => setCopied(false), 2000);
     });
   };
+
+  useEffect(() => {
+    setLabel(`${content.slice(0, 4)}...${content.slice(-4)}`);
+  }, [content]);
 
   return (
     <div
@@ -26,9 +31,13 @@ export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => 
         justifyContent: 'center',
       }}
     >
-      <a href={solscanUrl} target="_blank" rel="noopener noreferrer">
-        {content.slice(0, 4)}...{content.slice(-4)}
-      </a>
+      {solscanUrl ? (
+        <a href={solscanUrl} target="_blank" rel="noopener noreferrer">
+          {label}
+        </a>
+      ) : (
+        <span>{label}</span>
+      )}
       <span
         onClick={copyToClipboard}
         onKeyDown={(e) => e.key === 'Enter' && copyToClipboard()}

@@ -2,6 +2,7 @@ import { getChainForEndpoint } from '@solana/wallet-standard-util';
 import type { FC } from 'react';
 import { FaucetTest } from '../components/FaucetTest';
 import { Header } from '../components/Header';
+import { PartialSignTransaction } from '../components/PartialSignTransaction';
 import { SendMemo } from '../components/SendMemo';
 import { SendSOL } from '../components/SendSol';
 import { SendSOLVersioned } from '../components/SendSolVersioned';
@@ -48,6 +49,9 @@ export const TestPage: FC = () => {
         </Test>
         <Test key="transferWSOL" title="Transfert WSOL">
           <SendWSolToAddress />
+        </Test>
+        <Test key="partialSignTransaction" title="Partial Sign Transaction">
+          <PartialSignTransaction />
         </Test>
       </div>
     </div>

@@ -1,7 +1,16 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": ["tsconfig.json", "tsconfig.app.json", "tsconfig.node.json", "tmp/", ".vscode/", "dist", "node_modules"]
+    "ignore": [
+      "yarn.config.cjs",
+      "tsconfig.json",
+      "tsconfig.app.json",
+      "tsconfig.node.json",
+      "tmp/",
+      ".vscode/",
+      "dist",
+      "node_modules"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -71,5 +80,13 @@
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": false
-  }
+  },
+  "overrides": [
+    {
+      "include": ["**/package.json"],
+      "formatter": {
+        "lineWidth": 1
+      }
+    }
+  ]
 }

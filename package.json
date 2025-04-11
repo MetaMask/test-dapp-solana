@@ -1,25 +1,57 @@
 {
-  "name": "wallet-adapter-demo",
-  "private": true,
+  "name": "@metamask/test-dapp-solana",
   "version": "0.0.0",
-  "type": "module",
+  "description": "A test dapp for solana",
+  "homepage": "https://metamask.github.io/test-dapp-solana",
+  "bugs": {
+    "url": "https://github.com/MetaMask/test-dapp-solana/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MetaMask/test-dapp-solana.git"
+  },
+  "exports": {
+    ".": "./index.html",
+    "./package.json": "./package.json"
+  },
+  "main": "./index.js",
+  "files": [
+    "build/"
+  ],
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc -b && vite build",
     "format": "biome format",
-    "format:fix": "bun format --write",
-    "lint": "biome check",
-    "lint:fix": "bun lint --fix",
-    "preview": "vite preview"
+    "format:fix": "biome format --write",
+    "lint": "yarn lint:biome && yarn format && yarn lint:constraints && yarn lint:misc --check && yarn lint:dependencies --check && yarn lint:changelog",
+    "lint:changelog": "auto-changelog validate --prettier",
+    "lint:constraints": "yarn constraints",
+    "lint:dependencies": "depcheck && yarn dedupe",
+    "lint:biome": "biome check",
+    "lint:fix": "yarn lint:biome --fix && yarn format:fix && yarn lint:constraints --fix && yarn lint:misc --write && yarn lint:dependencies && yarn lint:changelog",
+    "lint:misc": "prettier '**/*.json' '**/*.md' '**/*.yml' '!.yarnrc.yml' --ignore-path .gitignore --no-error-on-unmatched-pattern",
+    "prepack": "./scripts/prepack.sh",
+    "start": "vite preview --port 3000",
+    "test": "vitest",
+    "test:watch": "vitest --watch"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "dependencies": {
-    "@jup-ag/wallet-adapter": "^0.2.1",
-    "@moongate/moongate-adapter": "^0.6.1",
     "@solana/spl-token": "^0.4.13",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-react": "^0.15.35",
     "@solana/wallet-adapter-react-ui": "^0.9.35",
-    "@solana/wallet-adapter-solflare": "^0.6.28",
     "@solana/wallet-adapter-wallets": "^0.19.32",
     "@solana/wallet-standard-util": "^1.1.2",
     "@solana/web3.js": "^1.95.5",
@@ -30,11 +62,47 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
+    "@lavamoat/allow-scripts": "^3.0.4",
+    "@lavamoat/preinstall-always-fail": "^2.0.0",
+    "@metamask/auto-changelog": "^3.4.3",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.3.0",
     "@types/bs58": "^4.0.4",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "@yarnpkg/types": "^4.0.1",
+    "depcheck": "^1.4.7",
+    "jsdom": "^26.0.0",
+    "prettier": "^3.5.3",
     "typescript": "~5.6.2",
-    "vite": "^6.0.1"
+    "vite": "^6.0.1",
+    "vitest": "^3.1.1"
+  },
+  "packageManager": "yarn@4.1.1",
+  "engines": {
+    "node": "^18.18 || >=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "lavamoat": {
+    "allowScripts": {
+      "@lavamoat/preinstall-always-fail": false,
+      "@biomejs/biome": false,
+      "@solana/wallet-adapter-wallets>@solana/wallet-adapter-torus>@toruslabs/solana-embed>@toruslabs/openlogin-jrpc>@toruslabs/openlogin-utils>keccak": false,
+      "@solana/wallet-adapter-wallets>@solana/wallet-adapter-trezor>@trezor/connect-web>@trezor/connect>@trezor/protobuf>protobufjs": false,
+      "@solana/wallet-adapter-wallets>@solana/wallet-adapter-trezor>@trezor/connect-web>@trezor/connect>@trezor/transport>usb": false,
+      "@solana/wallet-adapter-wallets>@solana/wallet-adapter-trezor>@trezor/connect-web>@trezor/connect>@trezor/utxo-lib>blake-hash": false,
+      "@solana/wallet-adapter-wallets>@solana/wallet-adapter-trezor>@trezor/connect-web>@trezor/connect>@trezor/utxo-lib>tiny-secp256k1": false,
+      "@solana/web3.js>bigint-buffer": false,
+      "@solana/web3.js>rpc-websockets>bufferutil": false,
+      "@solana/web3.js>rpc-websockets>utf-8-validate": false,
+      "@vitejs/plugin-react-swc>@swc/core": false,
+      "vite>esbuild": false,
+      "jsdom>ws>bufferutil": false,
+      "jsdom>ws>utf-8-validate": false
+    }
   }
 }
