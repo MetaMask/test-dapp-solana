@@ -20,7 +20,7 @@
     "dist/"
   ],
   "scripts": {
-    "dev": "vite --port 3000",
+    "dev": "vite --port 8080",
     "build": "tsc -b && vite build && tsc --project tsconfig.test.json --outDir dist",
     "format": "biome format",
     "format:fix": "biome format --write",
@@ -32,7 +32,7 @@
     "lint:fix": "yarn lint:biome --fix && yarn format:fix && yarn lint:constraints --fix && yarn lint:misc --write && yarn lint:dependencies && yarn lint:changelog",
     "lint:misc": "prettier '**/*.json' '**/*.md' '**/*.yml' '!.yarnrc.yml' --ignore-path .gitignore --no-error-on-unmatched-pattern",
     "prepack": "./scripts/prepack.sh",
-    "start": "vite preview --port 3000",
+    "start": "vite preview --port 8080",
     "test": "vitest",
     "test:watch": "vitest --watch"
   },
