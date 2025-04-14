@@ -32,11 +32,11 @@ export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => 
       }}
     >
       {solscanUrl ? (
-        <a href={solscanUrl} target="_blank" rel="noopener noreferrer">
+        <a className='content' href={solscanUrl} target="_blank" rel="noopener noreferrer">
           {label}
         </a>
       ) : (
-        <span>{label}</span>
+        <span className='content'>{label}</span>
       )}
       <span
         onClick={copyToClipboard}

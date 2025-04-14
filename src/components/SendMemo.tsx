@@ -4,20 +4,21 @@ import { PublicKey, TransactionInstruction, TransactionMessage, VersionedTransac
 import { type FC, useCallback, useState } from 'react';
 import { Button } from './Button';
 import { TransactionHash } from './TransactionHash';
+import { dataTestIds } from '../test';
 
 export const SendMemo: FC = () => {
   const { connection } = useConnection();
   const { publicKey, signTransaction, sendTransaction } = useWallet();
   const [signedTransaction, setSignedTransaction] = useState<VersionedTransaction | undefined>();
   const [transactionHash, settransactionHash] = useState<string | undefined>();
-  const [message, setMessage] = useState<string>('Hello, from the Solana Wallet Adapter example app!');
+  const [memo, setMemoe] = useState<string>('Hello, from the Solana Wallet Adapter example app!');
   const [loading, setLoading] = useState(false);
 
   /**
-   * Handle message change.
+   * Handle memo change.
    */
-  const handleMessageChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setMessage(event.target.value);
+  const handleMemoeChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setMemoe(event.target.value);
   }, []);
 
   /**
@@ -28,20 +29,20 @@ export const SendMemo: FC = () => {
       throw new WalletNotConnectedError();
     }
     const latestBlockhash = await connection.getLatestBlockhash('confirmed');
-    const messageV0 = new TransactionMessage({
+    const memoV0 = new TransactionMessage({
       payerKey: publicKey,
       recentBlockhash: latestBlockhash.blockhash,
       instructions: [
         new TransactionInstruction({
-          data: Buffer.from(message),
+          data: Buffer.from(memo),
           keys: [],
           programId: new PublicKey('MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr'),
         }),
       ],
     }).compileToV0Message();
-    const transaction = new VersionedTransaction(messageV0);
+    const transaction = new VersionedTransaction(memoV0);
     return transaction;
-  }, [publicKey, signTransaction, connection, message]);
+  }, [publicKey, signTransaction, connection, memo]);
 
   /**
    * Sign the transaction.
@@ -83,21 +84,21 @@ export const SendMemo: FC = () => {
   return (
     <>
       <div style={{ marginBottom: '1rem' }}>
-        <label htmlFor="message">Message:</label>
+        <label htmlFor="memo">Memoe:</label>
         <input
-          id="message"
+          data-testid={dataTestIds.testPage.sendMemo.memo}
           type="text"
-          value={message}
-          onChange={handleMessageChange}
+          value={memo}
+          onChange={handleMemoeChange}
           style={{ width: '90%', padding: '0.5rem', marginTop: '0.5rem' }}
         />
       </div>
       <div style={{ display: 'flex', gap: '20px' }}>
-        <Button onClick={handleSignTransaction} disabled={!publicKey} loading={loading}>
+        <Button data-testid={dataTestIds.testPage.sendMemo.signTransaction} onClick={handleSignTransaction} disabled={!publicKey} loading={loading}>
           Sign Transaction
         </Button>
 
-        <Button onClick={handleSignAndSendTransaction} disabled={!publicKey} loading={loading}>
+        <Button data-testid={dataTestIds.testPage.sendMemo.sendTransaction} onClick={handleSignAndSendTransaction} disabled={!publicKey} loading={loading}>
           Sign and Send Transaction
         </Button>
       </div>
@@ -106,7 +107,7 @@ export const SendMemo: FC = () => {
         <>
           <h3>Signed transaction</h3>
           <textarea
-            id="result"
+            data-testid={dataTestIds.testPage.sendMemo.signedTransaction}
             style={{ width: '100%', height: '200px', resize: 'none' }}
             value={Buffer.from(signedTransaction?.signatures[0]!).toString('base64')}
             readOnly
@@ -118,7 +119,7 @@ export const SendMemo: FC = () => {
       {transactionHash && (
         <>
           <h3>Transaction</h3>
-          <TransactionHash hash={transactionHash} />
+          <TransactionHash data-testid={dataTestIds.testPage.sendMemo.transactionHash} hash={transactionHash} />
         </>
       )}
     </>

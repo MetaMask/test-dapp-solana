@@ -9,6 +9,7 @@ import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { SystemProgram, Transaction } from '@solana/web3.js';
 import { type FC, useCallback, useEffect, useState } from 'react';
 import { WSOL_MINT } from '../config';
+import { dataTestIds } from '../test';
 import { Button } from './Button';
 
 const solAirDropAmount = 1; // Amount of SOL to airdrop
@@ -137,11 +138,11 @@ export const FaucetTest: FC = () => {
       <p>WSOL Balance: {wsolBalance.toFixed(2)} WSOL</p>
 
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <Button onClick={requestAirdrop} disabled={!publicKey} loading={loading}>
+        <Button data-testid={dataTestIds.testPage.faucet.getSol} onClick={requestAirdrop} disabled={!publicKey} loading={loading}>
           {`Get ${solAirDropAmount} SOL`}
         </Button>
         {solBalance > 0 && (
-          <Button onClick={convertToWsol} disabled={!publicKey} loading={loading}>
+          <Button data-testid={dataTestIds.testPage.faucet.convertSolToWsol} onClick={convertToWsol} disabled={!publicKey} loading={loading}>
             {`Convert ${wsolConversionAmount} SOL to WSOL`}
           </Button>
         )}

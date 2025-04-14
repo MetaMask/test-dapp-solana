@@ -2,6 +2,7 @@ import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { type FC, useCallback, useState } from 'react';
 import { Button } from './Button';
+import { dataTestIds } from '../test';
 
 export const SignMessage: FC = () => {
   const { publicKey, signMessage } = useWallet();
@@ -36,18 +37,18 @@ export const SignMessage: FC = () => {
   }, [publicKey, signMessage, message]);
 
   return (
-    <>
+    <div>
       <div style={{ marginBottom: '1rem' }}>
         <label htmlFor="message">Message:</label>
         <input
-          id="message"
+          data-testid={dataTestIds.testPage.signMessage.message}
           type="text"
           value={message}
           onChange={handleMessageChange}
           style={{ width: '90%', padding: '0.5rem', marginTop: '0.5rem' }}
         />
       </div>
-      <Button onClick={handleSigneMessage} disabled={!publicKey} loading={loading}>
+      <Button data-testid={dataTestIds.testPage.signMessage.signMessage} onClick={handleSigneMessage} disabled={!publicKey} loading={loading}>
         Sign Message
       </Button>
 
@@ -55,7 +56,7 @@ export const SignMessage: FC = () => {
         <>
           <h3>Signed Message</h3>
           <textarea
-            id="signed-message"
+            data-testid={dataTestIds.testPage.signMessage.signedMessage}
             style={{ width: '100%', height: '200px', resize: 'none' }}
             value={signedMessage}
             readOnly
@@ -63,6 +64,6 @@ export const SignMessage: FC = () => {
           />
         </>
       )}
-    </>
+    </div>
   );
 };

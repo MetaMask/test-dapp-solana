@@ -1,4 +1,3 @@
-import { getChainForEndpoint } from '@solana/wallet-standard-util';
 import type { FC } from 'react';
 import { FaucetTest } from '../components/FaucetTest';
 import { Header } from '../components/Header';
@@ -6,13 +5,15 @@ import { PartialSignTransaction } from '../components/PartialSignTransaction';
 import { SendMemo } from '../components/SendMemo';
 import { SendSOL } from '../components/SendSol';
 import { SendSOLVersioned } from '../components/SendSolVersioned';
-import { SendWSolToAddress } from '../components/SendWSolToAddress';
+import { SendWSol } from '../components/SendWSol';
 import { SignMessage } from '../components/SignMessage';
 import { Test } from '../components/Test';
-import { RPC_HTTP_ENDPOINT } from '../config';
+import { dataTestIds } from '../test';
+import { useEndpoint } from '../context/EndpointProvider';
 
 export const TestPage: FC = () => {
-  const isMainNet = getChainForEndpoint(RPC_HTTP_ENDPOINT) === 'solana:mainnet';
+  const { network } = useEndpoint();
+  const isMainNet = network === 'solana:mainnet';
 
   return (
     <div style={{ padding: '1rem' }}>
@@ -21,7 +22,7 @@ export const TestPage: FC = () => {
           marginBottom: '2rem',
         }}
       >
-        <Header />
+        <Header data-testid={dataTestIds.header.id}/>
       </div>
       <div
         style={{
@@ -32,26 +33,26 @@ export const TestPage: FC = () => {
       >
         {!isMainNet && (
           <Test key="faucet" title="Faucet">
-            <FaucetTest />
+            <FaucetTest data-testid={dataTestIds.testPage.faucet.id} />
           </Test>
         )}
         <Test key="signMessage" title="Sign Message">
-          <SignMessage />
+          <SignMessage data-testid={dataTestIds.testPage.signMessage.id} />
         </Test>
-        <Test key="transfertSol" title="Transfert SOL">
-          <SendSOL />
+        <Test key="sendSol" title="Transfert SOL">
+          <SendSOL data-testid={dataTestIds.testPage.sendSol.id}/>
         </Test>
-        <Test key="transfertSolVersioned" title="Transfert SOL (versioned)">
-          <SendSOLVersioned />
+        <Test key="sendSolVersioned" title="Transfert SOL (versioned)">
+          <SendSOLVersioned data-testid={dataTestIds.testPage.sendSolVersioned.id}/>
         </Test>
         <Test key="sendMemo" title="Send Memo">
-          <SendMemo />
+          <SendMemo data-testid={dataTestIds.testPage.sendMemo.id}/>
         </Test>
-        <Test key="transferWSOL" title="Transfert WSOL">
-          <SendWSolToAddress />
+        <Test key="sendWSol" title="Transfert WSOL">
+          <SendWSol data-testid={dataTestIds.testPage.sendWSol.id}/>
         </Test>
         <Test key="partialSignTransaction" title="Partial Sign Transaction">
-          <PartialSignTransaction />
+          <PartialSignTransaction data-testid={dataTestIds.testPage.partialSignTransaction.id}/>
         </Test>
       </div>
     </div>

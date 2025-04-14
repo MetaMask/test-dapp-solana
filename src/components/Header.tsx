@@ -4,6 +4,7 @@ import { getChainForEndpoint } from '@solana/wallet-standard-util';
 import { type FC, useCallback, useState } from 'react';
 import { useEndpoint } from '../context/EndpointProvider';
 import { Account } from './Account';
+import { dataTestIds } from '../test';
 
 type HeaderProps = {};
 
@@ -73,6 +74,7 @@ export const Header: FC<HeaderProps> = () => {
           style={{ wordWrap: 'break-word', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}
         >
           <input
+            data-testid={dataTestIds.header.endpoint}
             type="text"
             value={tempEndpoint}
             onChange={handleInputChange}
@@ -101,14 +103,14 @@ export const Header: FC<HeaderProps> = () => {
       </div>
       <div style={{ wordWrap: 'break-word' }}>
         <strong>Status:</strong>
-        <div>{connected ? 'Connected' : 'Not connected'}</div>
+        <div data-testid={dataTestIds.header.connectionStatus}>{connected ? 'Connected' : 'Not connected'}</div>
       </div>
       <div style={{ wordWrap: 'break-word' }}>
         <strong>Wallet:</strong>
-        <div>{publicKey ? <Account account={publicKey.toBase58()} /> : 'N/A'}</div>
+        <div>{publicKey ? <Account data-testid={dataTestIds.header.account} account={publicKey.toBase58()} /> : 'N/A'}</div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        {connected ? <WalletDisconnectButton /> : <WalletMultiButton />}
+        {connected ? <WalletDisconnectButton data-testid={dataTestIds.header.disconnect}/> : <WalletMultiButton data-testid={dataTestIds.header.connect}/>}
       </div>
     </div>
   );

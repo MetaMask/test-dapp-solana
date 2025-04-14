@@ -17,7 +17,8 @@ import {
 import { PublicKey } from '@solana/web3.js';
 import type { FC } from 'react';
 import { useCallback, useState } from 'react';
-import { WSOL_MINT, defaultAddresses } from '../config';
+import { WSOL_MINT } from '../config';
+import { dataTestIds, defaultAddresses } from '../test';
 import { Button } from './Button';
 import { TransactionHash } from './TransactionHash';
 
@@ -118,7 +119,7 @@ async function getTokenTransfertInstruction(
 /**
  * Send Token to predefined addresses.
  */
-export const SendWSolToAddress: FC = () => {
+export const SendWSol: FC = () => {
   const { connection } = useConnection();
   const { publicKey, signTransaction, signAllTransactions, sendTransaction } = useWallet();
   const [signedTransactions, setSignedTransactions] = useState<VersionedTransaction[]>([]);
@@ -245,6 +246,7 @@ export const SendWSolToAddress: FC = () => {
           <label>
             X addresses:
             <input
+              data-testid={dataTestIds.testPage.sendWSol.nbAddresses}
               type="text"
               style={{ width: '50%', padding: '0.5rem', marginTop: '0.5rem', marginLeft: '0.5rem' }}
               max={10}
@@ -258,6 +260,7 @@ export const SendWSolToAddress: FC = () => {
             <label>
               One transaction by transfert:
               <input
+              data-testid={dataTestIds.testPage.sendWSol.multipleTransactions}
                 type="checkbox"
                 style={{ paddingLeft: '0.5rem', marginLeft: '0.5rem' }}
                 checked={inMultipleTransactions}
@@ -268,6 +271,7 @@ export const SendWSolToAddress: FC = () => {
           <label>
             Amount:
             <input
+            data-testid={dataTestIds.testPage.sendWSol.amount}
               style={{ width: '50%', padding: '0.5rem', marginTop: '0.5rem', marginLeft: '0.5rem' }}
               type="text"
               placeholder="Amount In Sol"
@@ -277,10 +281,10 @@ export const SendWSolToAddress: FC = () => {
           </label>
 
           <div style={{ display: 'flex', gap: '1rem' }}>
-            <Button onClick={signOnly} disabled={!publicKey} loading={loading}>
+            <Button data-testid={dataTestIds.testPage.sendWSol.signTransaction} onClick={signOnly} disabled={!publicKey} loading={loading}>
               Sign Transaction
             </Button>
-            <Button onClick={signAndSend} disabled={!publicKey} loading={loading}>
+            <Button data-testid={dataTestIds.testPage.sendWSol.sendTransaction} onClick={signAndSend} disabled={!publicKey} loading={loading}>
               Sign and Send Transaction
             </Button>
           </div>
@@ -290,7 +294,7 @@ export const SendWSolToAddress: FC = () => {
           <>
             <h3>Signed transactions</h3>
             <textarea
-              id="result"
+              data-testid={dataTestIds.testPage.sendWSol.signedTransactions}
               style={{ width: '100%', height: '200px', resize: 'none' }}
               value={signedTransactions.map((tx) => Buffer.from(tx.signatures[0]).toString('base64')).join('\n')}
               readOnly
@@ -302,9 +306,11 @@ export const SendWSolToAddress: FC = () => {
         {sentTransactions.length > 0 && (
           <>
             <h3>Transaction(s)</h3>
-            {sentTransactions.map((txHash) => (
-              <TransactionHash key={txHash} hash={txHash} />
-            ))}
+            <div data-testid={dataTestIds.testPage.sendWSol.transactionHashs}>
+              {sentTransactions.map((txHash) => (
+                <TransactionHash key={txHash} hash={txHash} />
+              ))}
+            </div>
           </>
         )}
       </form>
