@@ -237,7 +237,7 @@ export const SendWSol: FC = () => {
   }, [sendTransaction, getTransactions, connection]);
 
   return (
-    <>
+    <div data-testid={dataTestIds.testPage.sendWSol.id}>
       <p>Send WSOL to X addresses</p>
       <form
         onSubmit={(e) => e.preventDefault()} // Empêcher le rechargement de la page
@@ -260,7 +260,7 @@ export const SendWSol: FC = () => {
             <label>
               One transaction by transfert:
               <input
-              data-testid={dataTestIds.testPage.sendWSol.multipleTransactions}
+                data-testid={dataTestIds.testPage.sendWSol.multipleTransactions}
                 type="checkbox"
                 style={{ paddingLeft: '0.5rem', marginLeft: '0.5rem' }}
                 checked={inMultipleTransactions}
@@ -271,7 +271,7 @@ export const SendWSol: FC = () => {
           <label>
             Amount:
             <input
-            data-testid={dataTestIds.testPage.sendWSol.amount}
+              data-testid={dataTestIds.testPage.sendWSol.amount}
               style={{ width: '50%', padding: '0.5rem', marginTop: '0.5rem', marginLeft: '0.5rem' }}
               type="text"
               placeholder="Amount In Sol"
@@ -281,10 +281,20 @@ export const SendWSol: FC = () => {
           </label>
 
           <div style={{ display: 'flex', gap: '1rem' }}>
-            <Button data-testid={dataTestIds.testPage.sendWSol.signTransaction} onClick={signOnly} disabled={!publicKey} loading={loading}>
+            <Button
+              data-testid={dataTestIds.testPage.sendWSol.signTransaction}
+              onClick={signOnly}
+              disabled={!publicKey}
+              loading={loading}
+            >
               Sign Transaction
             </Button>
-            <Button data-testid={dataTestIds.testPage.sendWSol.sendTransaction} onClick={signAndSend} disabled={!publicKey} loading={loading}>
+            <Button
+              data-testid={dataTestIds.testPage.sendWSol.sendTransaction}
+              onClick={signAndSend}
+              disabled={!publicKey}
+              loading={loading}
+            >
               Sign and Send Transaction
             </Button>
           </div>
@@ -314,6 +324,6 @@ export const SendWSol: FC = () => {
           </>
         )}
       </form>
-    </>
+    </div>
   );
 };

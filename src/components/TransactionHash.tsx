@@ -26,8 +26,8 @@ const getSolscanTxUrl = (endpoint: string, hash: string): string | undefined => 
 /**
  * TransactionHash component
  */
-export const TransactionHash: FC<TransactionHashProps> = ({ hash }) => {
+export const TransactionHash: FC<TransactionHashProps> = ({ hash, ...props }) => {
   const { endpoint } = useEndpoint();
 
-  return <SolscanShort content={hash} solscanUrl={getSolscanTxUrl(endpoint, hash)} />;
+  return <SolscanShort {...props} content={hash} solscanUrl={getSolscanTxUrl(endpoint, hash)} />;
 };

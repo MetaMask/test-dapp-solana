@@ -133,20 +133,30 @@ export const FaucetTest: FC = () => {
   }, [sendTransaction, connection, publicKey, fetchBalances]);
 
   return (
-    <>
+    <div data-testid={dataTestIds.testPage.faucet.id}>
       <p>SOL Balance: {solBalance.toFixed(2)} SOL</p>
       <p>WSOL Balance: {wsolBalance.toFixed(2)} WSOL</p>
 
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <Button data-testid={dataTestIds.testPage.faucet.getSol} onClick={requestAirdrop} disabled={!publicKey} loading={loading}>
+        <Button
+          data-testid={dataTestIds.testPage.faucet.getSol}
+          onClick={requestAirdrop}
+          disabled={!publicKey}
+          loading={loading}
+        >
           {`Get ${solAirDropAmount} SOL`}
         </Button>
         {solBalance > 0 && (
-          <Button data-testid={dataTestIds.testPage.faucet.convertSolToWsol} onClick={convertToWsol} disabled={!publicKey} loading={loading}>
+          <Button
+            data-testid={dataTestIds.testPage.faucet.convertSolToWsol}
+            onClick={convertToWsol}
+            disabled={!publicKey}
+            loading={loading}
+          >
             {`Convert ${wsolConversionAmount} SOL to WSOL`}
           </Button>
         )}
       </div>
-    </>
+    </div>
   );
 };

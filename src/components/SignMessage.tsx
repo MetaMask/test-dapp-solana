@@ -1,8 +1,8 @@
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { type FC, useCallback, useState } from 'react';
-import { Button } from './Button';
 import { dataTestIds } from '../test';
+import { Button } from './Button';
 
 export const SignMessage: FC = () => {
   const { publicKey, signMessage } = useWallet();
@@ -37,7 +37,7 @@ export const SignMessage: FC = () => {
   }, [publicKey, signMessage, message]);
 
   return (
-    <div>
+    <div data-testid={dataTestIds.testPage.signMessage.id}>
       <div style={{ marginBottom: '1rem' }}>
         <label htmlFor="message">Message:</label>
         <input
@@ -48,7 +48,12 @@ export const SignMessage: FC = () => {
           style={{ width: '90%', padding: '0.5rem', marginTop: '0.5rem' }}
         />
       </div>
-      <Button data-testid={dataTestIds.testPage.signMessage.signMessage} onClick={handleSigneMessage} disabled={!publicKey} loading={loading}>
+      <Button
+        data-testid={dataTestIds.testPage.signMessage.signMessage}
+        onClick={handleSigneMessage}
+        disabled={!publicKey}
+        loading={loading}
+      >
         Sign Message
       </Button>
 

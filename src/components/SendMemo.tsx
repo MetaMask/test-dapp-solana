@@ -2,9 +2,9 @@ import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey, TransactionInstruction, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
 import { type FC, useCallback, useState } from 'react';
+import { dataTestIds } from '../test';
 import { Button } from './Button';
 import { TransactionHash } from './TransactionHash';
-import { dataTestIds } from '../test';
 
 export const SendMemo: FC = () => {
   const { connection } = useConnection();
@@ -82,7 +82,7 @@ export const SendMemo: FC = () => {
   }, [getTransaction, sendTransaction, connection]);
 
   return (
-    <>
+    <div data-testid={dataTestIds.testPage.sendMemo.id}>
       <div style={{ marginBottom: '1rem' }}>
         <label htmlFor="memo">Memoe:</label>
         <input
@@ -94,11 +94,21 @@ export const SendMemo: FC = () => {
         />
       </div>
       <div style={{ display: 'flex', gap: '20px' }}>
-        <Button data-testid={dataTestIds.testPage.sendMemo.signTransaction} onClick={handleSignTransaction} disabled={!publicKey} loading={loading}>
+        <Button
+          data-testid={dataTestIds.testPage.sendMemo.signTransaction}
+          onClick={handleSignTransaction}
+          disabled={!publicKey}
+          loading={loading}
+        >
           Sign Transaction
         </Button>
 
-        <Button data-testid={dataTestIds.testPage.sendMemo.sendTransaction} onClick={handleSignAndSendTransaction} disabled={!publicKey} loading={loading}>
+        <Button
+          data-testid={dataTestIds.testPage.sendMemo.sendTransaction}
+          onClick={handleSignAndSendTransaction}
+          disabled={!publicKey}
+          loading={loading}
+        >
           Sign and Send Transaction
         </Button>
       </div>
@@ -122,6 +132,6 @@ export const SendMemo: FC = () => {
           <TransactionHash data-testid={dataTestIds.testPage.sendMemo.transactionHash} hash={transactionHash} />
         </>
       )}
-    </>
+    </div>
   );
 };

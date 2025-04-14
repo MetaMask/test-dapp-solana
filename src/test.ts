@@ -1,4 +1,3 @@
-
 type Pathify<T, Prefix extends string = ''> = {
   [K in keyof T]: T[K] extends true
     ? `${Prefix extends '' ? '' : `${Prefix}.`}${Extract<K, string>}`
@@ -8,10 +7,10 @@ type Pathify<T, Prefix extends string = ''> = {
 };
 
 function pathifyObject<T>(obj: T): Pathify<T> {
-  function inner(obj: any, path: string = ''): any {
+  function inner(obj: any, path = ''): any {
     const result: any = {};
     for (const key in obj) {
-      const fullPath = path ? `${path}.${key}` : key;
+      const fullPath = (path ? `${path}.${key}` : key).toLowerCase();
       if (obj[key] === true) {
         result[key] = fullPath;
       } else if (typeof obj[key] === 'object' && obj[key] !== null) {
@@ -30,15 +29,15 @@ function pathifyObject<T>(obj: T): Pathify<T> {
  * The list of test ids to access elements in the e2e2 tests.
  */
 export const dataTestIds = pathifyObject({
-  header: {
-    id: true,
-    endpoint: true,
-    connect: true,
-    disconnect: true,
-    account: true,
-    connectionStatus: true,
-  },
   testPage: {
+    header: {
+      id: true,
+      endpoint: true,
+      connect: true,
+      disconnect: true,
+      account: true,
+      connectionStatus: true,
+    },
     faucet: {
       id: true,
       getSol: true,
@@ -88,10 +87,9 @@ export const dataTestIds = pathifyObject({
       id: true,
       signTransaction: true,
       signedTransaction: true,
-    }
-  }
-
-} as const)
+    },
+  },
+} as const);
 
 /**
  * The list of default addresses to use in the tests.

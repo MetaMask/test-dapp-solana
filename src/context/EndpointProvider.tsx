@@ -1,7 +1,7 @@
+import type { SolanaChain } from '@solana/wallet-standard-chains';
+import { getChainForEndpoint } from '@solana/wallet-standard-util';
 import type React from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { getChainForEndpoint } from '@solana/wallet-standard-util';
-import type { SolanaChain } from '@solana/wallet-standard-chains';
 import { RPC_HTTP_ENDPOINT } from '../config';
 
 const LOCAL_STORAGE_KEY = 'rpc_http_endpoint';
@@ -24,7 +24,7 @@ export const EndpointProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [network, setNetwork] = useState<SolanaChain>(getChainForEndpoint(endpoint));
 
   useEffect(() => {
-    setNetwork(getChainForEndpoint(RPC_HTTP_ENDPOINT));
+    setNetwork(getChainForEndpoint(endpoint));
   }, [endpoint]);
 
   return <EndpointContext.Provider value={{ endpoint, setEndpoint, network }}>{children}</EndpointContext.Provider>;

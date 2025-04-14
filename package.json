@@ -14,13 +14,13 @@
     ".": "./dist/index.js",
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.js",
+  "main": "./index.js",
   "types": "./dist/index.d.js",
   "files": [
-    "dist/"
+    "build/"
   ],
   "scripts": {
-    "dev": "vite --port 8080",
+    "dev": "vite --host 0.0.0.0 --port 8081",
     "build": "tsc -b && vite build && tsc --project tsconfig.test.json --outDir dist",
     "format": "biome format",
     "format:fix": "biome format --write",
@@ -32,7 +32,7 @@
     "lint:fix": "yarn lint:biome --fix && yarn format:fix && yarn lint:constraints --fix && yarn lint:misc --write && yarn lint:dependencies && yarn lint:changelog",
     "lint:misc": "prettier '**/*.json' '**/*.md' '**/*.yml' '!.yarnrc.yml' --ignore-path .gitignore --no-error-on-unmatched-pattern",
     "prepack": "./scripts/prepack.sh",
-    "start": "vite preview --port 8080",
+    "start": "vite preview --port 8081",
     "test": "vitest",
     "test:watch": "vitest --watch"
   },

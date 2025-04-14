@@ -87,7 +87,7 @@ export const SendSOLVersioned: FC = () => {
   }, [getTransaction, sendTransaction, connection]);
 
   return (
-    <>
+    <div data-testid={dataTestIds.testPage.sendSolVersioned.id}>
       <div style={{ marginBottom: '1rem' }}>
         <label htmlFor="address">Destination Address:</label>
         <input
@@ -99,10 +99,20 @@ export const SendSOLVersioned: FC = () => {
         />
       </div>
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <Button data-testid={dataTestIds.testPage.sendSolVersioned.signTransaction} onClick={signOnly} disabled={!publicKey} loading={loading}>
+        <Button
+          data-testid={dataTestIds.testPage.sendSolVersioned.signTransaction}
+          onClick={signOnly}
+          disabled={!publicKey}
+          loading={loading}
+        >
           Sign Transaction
         </Button>
-        <Button data-testid={dataTestIds.testPage.sendSolVersioned.sendTransaction} onClick={signAndSend} disabled={!publicKey} loading={loading}>
+        <Button
+          data-testid={dataTestIds.testPage.sendSolVersioned.sendTransaction}
+          onClick={signAndSend}
+          disabled={!publicKey}
+          loading={loading}
+        >
           Sign and Send Transaction
         </Button>
       </div>
@@ -126,6 +136,6 @@ export const SendSOLVersioned: FC = () => {
           <TransactionHash data-testid={dataTestIds.testPage.sendSolVersioned.transactionHash} hash={transactionHash} />
         </>
       )}
-    </>
+    </div>
   );
 };

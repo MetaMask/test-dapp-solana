@@ -96,7 +96,12 @@ export const SendSOL: FC = () => {
         />
       </div>
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <Button data-testid={dataTestIds.testPage.sendSol.signTransaction} onClick={signOnly} disabled={!publicKey} loading={loading}>
+        <Button
+          data-testid={dataTestIds.testPage.sendSol.signTransaction}
+          onClick={signOnly}
+          disabled={!publicKey}
+          loading={loading}
+        >
           Sign Transaction
         </Button>
         <Button onClick={signAndSend} disabled={!publicKey} loading={loading}>

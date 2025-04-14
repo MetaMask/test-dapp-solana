@@ -58,9 +58,14 @@ export const PartialSignTransaction: FC = () => {
   }, [getTransaction, signTransaction]);
 
   return (
-    <>
+    <div data-testid={dataTestIds.testPage.partialSignTransaction.id}>
       <div style={{ display: 'flex', gap: '20px' }}>
-        <Button data-testid={dataTestIds.testPage.partialSignTransaction.signTransaction} onClick={handlePartialSignTransaction} disabled={!publicKey} loading={loading}>
+        <Button
+          data-testid={dataTestIds.testPage.partialSignTransaction.signTransaction}
+          onClick={handlePartialSignTransaction}
+          disabled={!publicKey}
+          loading={loading}
+        >
           Partial Sign Transaction
         </Button>
       </div>
@@ -77,6 +82,6 @@ export const PartialSignTransaction: FC = () => {
           />
         </>
       )}
-    </>
+    </div>
   );
 };

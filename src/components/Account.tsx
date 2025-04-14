@@ -27,8 +27,8 @@ const getSolscanAccountUrl = (endpoint: string, account: string): string | undef
  * Account component
  * Displays a Solana account address with a link to its Solscan page
  */
-export const Account: FC<AccountProps> = ({ account }) => {
+export const Account: FC<AccountProps> = ({ account, ...props }) => {
   const { endpoint } = useEndpoint();
 
-  return <SolscanShort content={account} solscanUrl={getSolscanAccountUrl(endpoint, account)} />;
+  return <SolscanShort {...props} content={account} solscanUrl={getSolscanAccountUrl(endpoint, account)} />;
 };

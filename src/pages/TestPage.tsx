@@ -8,7 +8,6 @@ import { SendSOLVersioned } from '../components/SendSolVersioned';
 import { SendWSol } from '../components/SendWSol';
 import { SignMessage } from '../components/SignMessage';
 import { Test } from '../components/Test';
-import { dataTestIds } from '../test';
 import { useEndpoint } from '../context/EndpointProvider';
 
 export const TestPage: FC = () => {
@@ -22,7 +21,7 @@ export const TestPage: FC = () => {
           marginBottom: '2rem',
         }}
       >
-        <Header data-testid={dataTestIds.header.id}/>
+        <Header />
       </div>
       <div
         style={{
@@ -33,26 +32,26 @@ export const TestPage: FC = () => {
       >
         {!isMainNet && (
           <Test key="faucet" title="Faucet">
-            <FaucetTest data-testid={dataTestIds.testPage.faucet.id} />
+            <FaucetTest />
           </Test>
         )}
         <Test key="signMessage" title="Sign Message">
-          <SignMessage data-testid={dataTestIds.testPage.signMessage.id} />
+          <SignMessage />
         </Test>
         <Test key="sendSol" title="Transfert SOL">
-          <SendSOL data-testid={dataTestIds.testPage.sendSol.id}/>
+          <SendSOL />
         </Test>
         <Test key="sendSolVersioned" title="Transfert SOL (versioned)">
-          <SendSOLVersioned data-testid={dataTestIds.testPage.sendSolVersioned.id}/>
+          <SendSOLVersioned />
         </Test>
         <Test key="sendMemo" title="Send Memo">
-          <SendMemo data-testid={dataTestIds.testPage.sendMemo.id}/>
+          <SendMemo />
         </Test>
         <Test key="sendWSol" title="Transfert WSOL">
-          <SendWSol data-testid={dataTestIds.testPage.sendWSol.id}/>
+          <SendWSol />
         </Test>
         <Test key="partialSignTransaction" title="Partial Sign Transaction">
-          <PartialSignTransaction data-testid={dataTestIds.testPage.partialSignTransaction.id}/>
+          <PartialSignTransaction />
         </Test>
       </div>
     </div>
