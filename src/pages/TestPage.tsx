@@ -1,4 +1,3 @@
-import { getChainForEndpoint } from '@solana/wallet-standard-util';
 import type { FC } from 'react';
 import { FaucetTest } from '../components/FaucetTest';
 import { Header } from '../components/Header';
@@ -6,13 +5,14 @@ import { PartialSignTransaction } from '../components/PartialSignTransaction';
 import { SendMemo } from '../components/SendMemo';
 import { SendSOL } from '../components/SendSol';
 import { SendSOLVersioned } from '../components/SendSolVersioned';
-import { SendWSolToAddress } from '../components/SendWSolToAddress';
+import { SendWSol } from '../components/SendWSol';
 import { SignMessage } from '../components/SignMessage';
 import { Test } from '../components/Test';
-import { RPC_HTTP_ENDPOINT } from '../config';
+import { useEndpoint } from '../context/EndpointProvider';
 
 export const TestPage: FC = () => {
-  const isMainNet = getChainForEndpoint(RPC_HTTP_ENDPOINT) === 'solana:mainnet';
+  const { network } = useEndpoint();
+  const isMainNet = network === 'solana:mainnet';
 
   return (
     <div style={{ padding: '1rem' }}>
@@ -38,17 +38,17 @@ export const TestPage: FC = () => {
         <Test key="signMessage" title="Sign Message">
           <SignMessage />
         </Test>
-        <Test key="transfertSol" title="Transfert SOL">
+        <Test key="sendSol" title="Transfert SOL">
           <SendSOL />
         </Test>
-        <Test key="transfertSolVersioned" title="Transfert SOL (versioned)">
+        <Test key="sendSolVersioned" title="Transfert SOL (versioned)">
           <SendSOLVersioned />
         </Test>
         <Test key="sendMemo" title="Send Memo">
           <SendMemo />
         </Test>
-        <Test key="transferWSOL" title="Transfert WSOL">
-          <SendWSolToAddress />
+        <Test key="sendWSol" title="Transfert WSOL">
+          <SendWSol />
         </Test>
         <Test key="partialSignTransaction" title="Partial Sign Transaction">
           <PartialSignTransaction />

@@ -1,9 +1,9 @@
-import { render } from '@testing-library/react';
-import { describe, it } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { expect, test } from 'vitest';
 import { App } from './App';
 
-describe('App', () => {
-  it('renders the App component', () => {
-    render(<App />);
-  });
+test('renders learn react link', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/Select Wallet/iu);
+  expect(linkElement).toBeDefined();
 });

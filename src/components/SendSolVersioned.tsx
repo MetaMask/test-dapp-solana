@@ -2,7 +2,7 @@ import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { Keypair, SystemProgram, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
 import { type ChangeEvent, type FC, useCallback, useState } from 'react';
-import { defaultAddresses } from '../config';
+import { dataTestIds, defaultAddresses } from '../test';
 import { Button } from './Button';
 import { TransactionHash } from './TransactionHash';
 
@@ -87,11 +87,11 @@ export const SendSOLVersioned: FC = () => {
   }, [getTransaction, sendTransaction, connection]);
 
   return (
-    <>
+    <div data-testid={dataTestIds.testPage.sendSolVersioned.id}>
       <div style={{ marginBottom: '1rem' }}>
         <label htmlFor="address">Destination Address:</label>
         <input
-          id="address"
+          data-testid={dataTestIds.testPage.sendSolVersioned.address}
           type="text"
           value={toAddress}
           onChange={handleAddressChange}
@@ -99,10 +99,20 @@ export const SendSOLVersioned: FC = () => {
         />
       </div>
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <Button onClick={signOnly} disabled={!publicKey} loading={loading}>
+        <Button
+          data-testid={dataTestIds.testPage.sendSolVersioned.signTransaction}
+          onClick={signOnly}
+          disabled={!publicKey}
+          loading={loading}
+        >
           Sign Transaction
         </Button>
-        <Button onClick={signAndSend} disabled={!publicKey} loading={loading}>
+        <Button
+          data-testid={dataTestIds.testPage.sendSolVersioned.sendTransaction}
+          onClick={signAndSend}
+          disabled={!publicKey}
+          loading={loading}
+        >
           Sign and Send Transaction
         </Button>
       </div>
@@ -111,7 +121,7 @@ export const SendSOLVersioned: FC = () => {
         <>
           <h3>Signed transaction</h3>
           <textarea
-            id="result"
+            data-testid={dataTestIds.testPage.sendSolVersioned.signedTransaction}
             style={{ width: '100%', height: '200px', resize: 'none' }}
             value={Buffer.from(signedTransaction?.signatures[0]).toString('base64')}
             readOnly
@@ -123,9 +133,9 @@ export const SendSOLVersioned: FC = () => {
       {transactionHash && (
         <>
           <h3>Transaction</h3>
-          <TransactionHash hash={transactionHash} />
+          <TransactionHash data-testid={dataTestIds.testPage.sendSolVersioned.transactionHash} hash={transactionHash} />
         </>
       )}
-    </>
+    </div>
   );
 };

@@ -6,7 +6,7 @@ interface SolscanShortProps {
   solscanUrl?: string;
 }
 
-export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => {
+export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl, ...props }) => {
   const [copied, setCopied] = useState(false);
   const [label, setLabel] = useState('');
 
@@ -23,6 +23,7 @@ export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => 
 
   return (
     <div
+      {...props}
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -32,11 +33,11 @@ export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl }) => 
       }}
     >
       {solscanUrl ? (
-        <a href={solscanUrl} target="_blank" rel="noopener noreferrer">
+        <a className="content" href={solscanUrl} target="_blank" rel="noopener noreferrer">
           {label}
         </a>
       ) : (
-        <span>{label}</span>
+        <span className="content">{label}</span>
       )}
       <span
         onClick={copyToClipboard}

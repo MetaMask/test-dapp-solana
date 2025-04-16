@@ -2,7 +2,7 @@ import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey, TransactionInstruction, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
 import { type FC, useCallback, useState } from 'react';
-import { defaultAddresses } from '../config';
+import { dataTestIds, defaultAddresses } from '../test';
 import { Button } from './Button';
 
 export const PartialSignTransaction: FC = () => {
@@ -58,9 +58,14 @@ export const PartialSignTransaction: FC = () => {
   }, [getTransaction, signTransaction]);
 
   return (
-    <>
+    <div data-testid={dataTestIds.testPage.partialSignTransaction.id}>
       <div style={{ display: 'flex', gap: '20px' }}>
-        <Button onClick={handlePartialSignTransaction} disabled={!publicKey} loading={loading}>
+        <Button
+          data-testid={dataTestIds.testPage.partialSignTransaction.signTransaction}
+          onClick={handlePartialSignTransaction}
+          disabled={!publicKey}
+          loading={loading}
+        >
           Partial Sign Transaction
         </Button>
       </div>
@@ -69,7 +74,7 @@ export const PartialSignTransaction: FC = () => {
         <>
           <h3>Partially Signed Transaction</h3>
           <textarea
-            id="result"
+            data-testid={dataTestIds.testPage.partialSignTransaction.signedTransaction}
             style={{ width: '100%', height: '200px', resize: 'none' }}
             value={Buffer.from(signedTransaction?.signatures[0]!).toString('base64')}
             readOnly
@@ -77,6 +82,6 @@ export const PartialSignTransaction: FC = () => {
           />
         </>
       )}
-    </>
+    </div>
   );
 };

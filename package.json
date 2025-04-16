@@ -11,16 +11,17 @@
     "url": "https://github.com/MetaMask/test-dapp-solana.git"
   },
   "exports": {
-    ".": "./index.html",
+    ".": "./dist/index.js",
     "./package.json": "./package.json"
   },
   "main": "./index.js",
+  "types": "./dist/index.d.js",
   "files": [
     "build/"
   ],
   "scripts": {
-    "dev": "vite --port 3000",
-    "build": "tsc -b && vite build",
+    "dev": "vite --host 0.0.0.0 --port 8081",
+    "build": "tsc -b && vite build && tsc --project tsconfig.test.json --outDir dist",
     "format": "biome format",
     "format:fix": "biome format --write",
     "lint": "yarn lint:biome && yarn format && yarn lint:constraints && yarn lint:misc --check && yarn lint:dependencies --check && yarn lint:changelog",
@@ -31,7 +32,7 @@
     "lint:fix": "yarn lint:biome --fix && yarn format:fix && yarn lint:constraints --fix && yarn lint:misc --write && yarn lint:dependencies && yarn lint:changelog",
     "lint:misc": "prettier '**/*.json' '**/*.md' '**/*.yml' '!.yarnrc.yml' --ignore-path .gitignore --no-error-on-unmatched-pattern",
     "prepack": "./scripts/prepack.sh",
-    "start": "vite preview --port 3000",
+    "start": "vite preview --port 8081",
     "test": "vitest",
     "test:watch": "vitest --watch"
   },
@@ -53,6 +54,7 @@
     "@solana/wallet-adapter-react": "^0.15.35",
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",
+    "@solana/wallet-standard-chains": "^1.1.1",
     "@solana/wallet-standard-util": "^1.1.2",
     "@solana/web3.js": "^1.95.5",
     "buffer": "^6.0.3",
