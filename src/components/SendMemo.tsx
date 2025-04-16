@@ -11,14 +11,14 @@ export const SendMemo: FC = () => {
   const { publicKey, signTransaction, sendTransaction } = useWallet();
   const [signedTransaction, setSignedTransaction] = useState<VersionedTransaction | undefined>();
   const [transactionHash, settransactionHash] = useState<string | undefined>();
-  const [memo, setMemoe] = useState<string>('Hello, from the Solana Wallet Adapter example app!');
+  const [memo, setMemo] = useState<string>('Hello, from the Solana Wallet Adapter example app!');
   const [loading, setLoading] = useState(false);
 
   /**
    * Handle memo change.
    */
-  const handleMemoeChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setMemoe(event.target.value);
+  const handleMemoChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setMemo(event.target.value);
   }, []);
 
   /**
@@ -84,12 +84,12 @@ export const SendMemo: FC = () => {
   return (
     <div data-testid={dataTestIds.testPage.sendMemo.id}>
       <div style={{ marginBottom: '1rem' }}>
-        <label htmlFor="memo">Memoe:</label>
+        <label htmlFor="memo">Memo:</label>
         <input
           data-testid={dataTestIds.testPage.sendMemo.memo}
           type="text"
           value={memo}
-          onChange={handleMemoeChange}
+          onChange={handleMemoChange}
           style={{ width: '90%', padding: '0.5rem', marginTop: '0.5rem' }}
         />
       </div>
