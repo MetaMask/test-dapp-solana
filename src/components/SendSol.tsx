@@ -84,7 +84,7 @@ export const SendSOL: FC = () => {
   }, [sendTransaction, getTransaction, connection]);
 
   return (
-    <>
+    <div data-testid={dataTestIds.testPage.sendSol.id}>
       <div style={{ marginBottom: '1rem' }}>
         <label htmlFor="address">Destination Address:</label>
         <input
@@ -128,6 +128,6 @@ export const SendSOL: FC = () => {
           <TransactionHash data-testid={dataTestIds.testPage.sendSol.transactionHash} hash={transactionHash} />
         </>
       )}
-    </>
+    </div>
   );
 };
