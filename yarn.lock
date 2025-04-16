@@ -816,18 +816,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/auto-changelog@npm:^3.4.3":
-  version: 3.4.4
-  resolution: "@metamask/auto-changelog@npm:3.4.4"
+"@metamask/auto-changelog@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@metamask/auto-changelog@npm:5.0.1"
   dependencies:
     diff: "npm:^5.0.0"
     execa: "npm:^5.1.1"
-    prettier: "npm:^2.8.8"
     semver: "npm:^7.3.5"
     yargs: "npm:^17.0.1"
+  peerDependencies:
+    prettier: ">=3.0.0"
   bin:
-    auto-changelog: dist/cli.js
-  checksum: 10/70e98529a153ebeab10410dbc3f567014999f77ed82f2b52f1b36501b28a4e3614c809a90c89600a739d7710595bfecc30e2260410e6afac7539f8db65a48f2c
+    auto-changelog: dist/cli.mjs
+  checksum: 10/4f526c710b4d198ca51ac447823fbc5528a86b31cfcba1d3d0ed2d71f847fb4276672a5a93d321778c75fe62450cf088ae4e110381a190d1d0c7ae8846040270
   languageName: node
   linkType: hard
 
@@ -848,7 +849,7 @@ __metadata:
     "@biomejs/biome": "npm:^1.8.3"
     "@lavamoat/allow-scripts": "npm:^3.0.4"
     "@lavamoat/preinstall-always-fail": "npm:^2.0.0"
-    "@metamask/auto-changelog": "npm:^3.4.3"
+    "@metamask/auto-changelog": "npm:^5.0.1"
     "@solana/spl-token": "npm:^0.4.13"
     "@solana/wallet-adapter-base": "npm:^0.9.23"
     "@solana/wallet-adapter-react": "npm:^0.15.35"
@@ -8211,15 +8212,6 @@ __metadata:
   version: 10.4.1
   resolution: "preact@npm:10.4.1"
   checksum: 10/12143d50f4e01f5f1f03ab46a1adc98d06e89d50d1fd6879ca7ca333bd4a680493ebe3d797ecdef6f005d4c7ca4e5257e1c3eecde419abcc87afba9fde6bd40c
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^2.8.8":
-  version: 2.8.8
-  resolution: "prettier@npm:2.8.8"
-  bin:
-    prettier: bin-prettier.js
-  checksum: 10/00cdb6ab0281f98306cd1847425c24cbaaa48a5ff03633945ab4c701901b8e96ad558eb0777364ffc312f437af9b5a07d0f45346266e8245beaf6247b9c62b24
   languageName: node
   linkType: hard
 
