@@ -7,4 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/MetaMask/test-dapp-solana/
+## [0.0.1]
+
+### Uncategorized
+
+- ci: fix permission ([#13](https://github.com/MetaMask/test-dapp-solana/pull/13))
+- Add missing SendSol testid ([#12](https://github.com/MetaMask/test-dapp-solana/pull/12))
+- Update readme ([#11](https://github.com/MetaMask/test-dapp-solana/pull/11))
+- CI: fix lockfile ([#10](https://github.com/MetaMask/test-dapp-solana/pull/10))
+- build(deps-dev): bump @metamask/auto-changelog from 3.4.4 to 5.0.1 ([#8](https://github.com/MetaMask/test-dapp-solana/pull/8))
+- add and export app-testid ([#9](https://github.com/MetaMask/test-dapp-solana/pull/9))
+- Update ci ([#7](https://github.com/MetaMask/test-dapp-solana/pull/7))
+- feat: disable faucet if mainnet ([#5](https://github.com/MetaMask/test-dapp-solana/pull/5))
+- feat: add tests
+- Token transfert ([#2](https://github.com/MetaMask/test-dapp-solana/pull/2))
+- Update README.md
+- Add demo video in README
+- Fix vite config
+- Token transfert
+- Fix connect, disconnect and send in adapter and wallet
+- Define metaMaskSdk in constructor
+- Cleanup
+- feat: MetaMask Wallet adapter
+- Init
+
+[Unreleased]: https://github.com/MetaMask/test-dapp-solana/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/MetaMask/test-dapp-solana/releases/tag/v0.0.1
