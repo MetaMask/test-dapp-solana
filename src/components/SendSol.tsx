@@ -75,7 +75,7 @@ export const SendSOL: FC = () => {
       const transaction = await getTransaction();
 
       const transactionHash = await sendTransaction(transaction, connection);
-      // await connection.confirmTransaction(transactionHash, 'confirmed'); // TODO: Disabled for E2E tests until local RPC is available
+      await connection.confirmTransaction(transactionHash, 'confirmed');
 
       settransactionHash(transactionHash);
     } finally {
