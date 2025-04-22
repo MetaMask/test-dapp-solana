@@ -5,6 +5,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 // https://vite.dev/config/
 // biome-ignore lint/style/noDefaultExport: <explanation>
 export default defineConfig({
+  base: '/',
   build: {
     outDir: 'dist',
   },
