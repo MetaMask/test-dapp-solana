@@ -1733,7 +1733,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@solana/codecs-numbers@npm:2.1.0":
+"@solana/codecs-numbers@npm:2.1.0, @solana/codecs-numbers@npm:^2.1.0":
   version: 2.1.0
   resolution: "@solana/codecs-numbers@npm:2.1.0"
   dependencies:
@@ -2890,15 +2890,15 @@ __metadata:
   linkType: hard
 
 "@solana/web3.js@npm:^1.32.0, @solana/web3.js@npm:^1.36.0, @solana/web3.js@npm:^1.91.4, @solana/web3.js@npm:^1.95.5":
-  version: 1.98.0
-  resolution: "@solana/web3.js@npm:1.98.0"
+  version: 1.98.1
+  resolution: "@solana/web3.js@npm:1.98.1"
   dependencies:
     "@babel/runtime": "npm:^7.25.0"
     "@noble/curves": "npm:^1.4.2"
     "@noble/hashes": "npm:^1.4.0"
     "@solana/buffer-layout": "npm:^4.0.1"
+    "@solana/codecs-numbers": "npm:^2.1.0"
     agentkeepalive: "npm:^4.5.0"
-    bigint-buffer: "npm:^1.1.5"
     bn.js: "npm:^5.2.1"
     borsh: "npm:^0.7.0"
     bs58: "npm:^4.0.1"
@@ -2908,7 +2908,7 @@ __metadata:
     node-fetch: "npm:^2.7.0"
     rpc-websockets: "npm:^9.0.2"
     superstruct: "npm:^2.0.2"
-  checksum: 10/b4d398c89a5007268b538b691b44c43b376dab59eb7e8acaa4c12a061812674a6e0b2802afb13e5f0ceacdb5102fb7bfb98d20743df0761f28b211aa37232b43
+  checksum: 10/a0e63454652a2117fea4a5734a92e05bcd4a909529bba700e2bb8f7b544dfedade308f361d66dabe6f32729eaf67404ad243aef2b5ef1227e0a88e084e7df4cb
   languageName: node
   linkType: hard
 
@@ -10015,8 +10015,8 @@ __metadata:
   linkType: hard
 
 "viem@npm:>=2.23.11":
-  version: 2.27.3
-  resolution: "viem@npm:2.27.3"
+  version: 2.28.0
+  resolution: "viem@npm:2.28.0"
   dependencies:
     "@noble/curves": "npm:1.8.2"
     "@noble/hashes": "npm:1.7.2"
@@ -10031,7 +10031,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/fc50480f2f43665121107fe315cdd851d6fed31bca36790e780c4709e775331b916a7de61b44cb4ce3ca83f2a8d637b68b7e0f575bc58b37235e44d9512077ce
+  checksum: 10/fbdf2ce3020b0ee37457726375cb2479cf716e5ef021470a79f2713c5def1ae53c881458cc3853d1cab8ba655385280aeebbdc155e81b8cb54c6387758e59435
   languageName: node
   linkType: hard
 
@@ -10475,8 +10475,8 @@ __metadata:
   linkType: hard
 
 "xrpl@npm:^4.2.0":
-  version: 4.2.4
-  resolution: "xrpl@npm:4.2.4"
+  version: 4.2.5
+  resolution: "xrpl@npm:4.2.5"
   dependencies:
     "@scure/bip32": "npm:^1.3.1"
     "@scure/bip39": "npm:^1.2.1"
@@ -10487,7 +10487,7 @@ __metadata:
     ripple-address-codec: "npm:^5.0.0"
     ripple-binary-codec: "npm:^2.3.0"
     ripple-keypairs: "npm:^2.0.0"
-  checksum: 10/6583bf8cc14eb7824c826e483643311484362a5ae859e1abe207313a6781ab45fcb581d7a6951d3fc47734ad281d95b34aeb868682b1222255e4f284c09b0b89
+  checksum: 10/34c4c39ebf96ec1237c2e756b4d8c39f4a8972c1dd3cbac2acb302c24b905ff4089c0a7342107e298a3dbbd2c3e71162fc1ee8064d27ea0fb1b3ca5ce90ad21d
   languageName: node
   linkType: hard
 
