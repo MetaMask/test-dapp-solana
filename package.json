@@ -1,6 +1,7 @@
 {
   "name": "@metamask/test-dapp-solana",
   "version": "0.1.0",
+  "license": "ISC",
   "description": "A test dapp for solana",
   "homepage": "https://metamask.github.io/test-dapp-solana",
   "bugs": {
