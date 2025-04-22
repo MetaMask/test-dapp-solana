@@ -1,6 +1,6 @@
 {
   "name": "@metamask/test-dapp-solana",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A test dapp for solana",
   "homepage": "https://metamask.github.io/test-dapp-solana",
   "bugs": {
@@ -104,7 +104,8 @@
       "@vitejs/plugin-react-swc>@swc/core": false,
       "vite>esbuild": false,
       "jsdom>ws>bufferutil": false,
-      "jsdom>ws>utf-8-validate": false
+      "jsdom>ws>utf-8-validate": false,
+      "@solana/spl-token>@solana/buffer-layout-utils>bigint-buffer": false
     }
   },
   "resolutions": {
