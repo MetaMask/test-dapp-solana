@@ -117,10 +117,7 @@ export const SendSOL: FC = () => {
       {signedTransaction && (
         <>
           <h3>Signed transaction</h3>
-          <pre
-            data-testid={dataTestIds.testPage.sendSol.signedTransaction}
-            className="signedTransactions"
-          >
+          <pre data-testid={dataTestIds.testPage.sendSol.signedTransaction} className="signedTransactions">
             {Buffer.from(signedTransaction?.signatures[0].signature!).toString('base64')}
           </pre>
         </>

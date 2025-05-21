@@ -60,10 +60,7 @@ export const SignMessage: FC = () => {
       {signedMessage && (
         <>
           <h3>Signed Message</h3>
-          <pre
-            data-testid={dataTestIds.testPage.signMessage.signedMessage}
-            className="signedTransactions"
-          >
+          <pre data-testid={dataTestIds.testPage.signMessage.signedMessage} className="signedTransactions">
             {signedMessage}
           </pre>
         </>

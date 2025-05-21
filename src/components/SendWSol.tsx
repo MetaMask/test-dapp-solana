@@ -303,10 +303,7 @@ export const SendWSol: FC = () => {
         {signedTransactions.length >= 1 && (
           <>
             <h3>Signed transactions</h3>
-            <pre
-              data-testid={dataTestIds.testPage.sendWSol.signedTransactions}
-              className="signedTransactions"
-            >
+            <pre data-testid={dataTestIds.testPage.sendWSol.signedTransactions} className="signedTransactions">
               {signedTransactions.map((tx) => Buffer.from(tx.signatures[0]).toString('base64')).join('\n')}
             </pre>
           </>
