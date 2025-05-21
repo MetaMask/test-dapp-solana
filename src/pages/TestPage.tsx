@@ -32,16 +32,16 @@ export const TestPage: FC = () => {
         <Test key="signMessage" title="Sign Message">
           <SignMessage />
         </Test>
-        <Test key="sendSol" title="Transfert SOL">
+        <Test key="sendSol" title="Transfer SOL">
           <SendSOL />
         </Test>
-        <Test key="sendSolVersioned" title="Transfert SOL (versioned)">
+        <Test key="sendSolVersioned" title="Transfer SOL (versioned)">
           <SendSOLVersioned />
         </Test>
         <Test key="sendMemo" title="Send Memo">
           <SendMemo />
         </Test>
-        <Test key="sendWSol" title="Transfert WSOL">
+        <Test key="sendWSol" title="Transfer WSOL">
           <SendWSol />
         </Test>
         <Test key="partialSignTransaction" title="Partial Sign Transaction">

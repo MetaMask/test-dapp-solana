@@ -21,7 +21,7 @@ export const Test: FC<TestProps> = ({ title, children }) => {
       <div
         style={{
           color: '#ffffff',
-          backgroundColor: '#512da8', // Arrière-plan pour le titre uniquement
+          backgroundColor: '#512da8', // Background color for the title only
           padding: '0.5rem 1rem',
           borderTopLeftRadius: '8px',
           borderTopRightRadius: '8px',
