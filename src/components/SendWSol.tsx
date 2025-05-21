@@ -303,13 +303,12 @@ export const SendWSol: FC = () => {
         {signedTransactions.length >= 1 && (
           <>
             <h3>Signed transactions</h3>
-            <textarea
+            <pre
               data-testid={dataTestIds.testPage.sendWSol.signedTransactions}
-              style={{ width: '100%', height: '200px', resize: 'none' }}
-              value={signedTransactions.map((tx) => Buffer.from(tx.signatures[0]).toString('base64')).join('\n')}
-              readOnly
-              onChange={() => {}}
-            />
+              className="signedTransactions"
+            >
+              {signedTransactions.map((tx) => Buffer.from(tx.signatures[0]).toString('base64')).join('\n')}
+            </pre>
           </>
         )}
 

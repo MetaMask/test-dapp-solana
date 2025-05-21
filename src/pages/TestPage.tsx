@@ -23,13 +23,7 @@ export const TestPage: FC = () => {
       >
         <Header />
       </div>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 2fr))',
-          gap: '2rem',
-        }}
-      >
+      <div className="grid">
         {!isMainNet && (
           <Test key="faucet" title="Faucet">
             <FaucetTest />

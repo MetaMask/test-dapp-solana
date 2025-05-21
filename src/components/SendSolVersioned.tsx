@@ -120,13 +120,12 @@ export const SendSOLVersioned: FC = () => {
       {signedTransaction && (
         <>
           <h3>Signed transaction</h3>
-          <textarea
+          <pre
             data-testid={dataTestIds.testPage.sendSolVersioned.signedTransaction}
-            style={{ width: '100%', height: '200px', resize: 'none' }}
-            value={Buffer.from(signedTransaction?.signatures[0]).toString('base64')}
-            readOnly
-            onChange={() => {}}
-          />
+            className="signedTransactions"
+          >
+            {Buffer.from(signedTransaction?.signatures[0]).toString('base64')}
+          </pre>
         </>
       )}
 
