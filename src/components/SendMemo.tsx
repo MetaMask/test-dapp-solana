@@ -116,13 +116,9 @@ export const SendMemo: FC = () => {
       {signedTransaction && (
         <>
           <h3>Signed transaction</h3>
-          <textarea
-            data-testid={dataTestIds.testPage.sendMemo.signedTransaction}
-            style={{ width: '100%', height: '200px', resize: 'none' }}
-            value={Buffer.from(signedTransaction?.signatures[0]!).toString('base64')}
-            readOnly
-            onChange={() => {}}
-          />
+          <pre data-testid={dataTestIds.testPage.sendMemo.signedTransaction} className="signedTransactions">
+            {Buffer.from(signedTransaction?.signatures[0]!).toString('base64')}
+          </pre>
         </>
       )}
 
