@@ -43,7 +43,7 @@ export const Button: FC<ButtonProps> = ({ children, loading, ...props }) => {
   );
 };
 
-// Ajout du style pour l'animation de rotation
+// Adding style for the rotation animation
 const style = document.createElement('style');
 style.textContent = `
 @keyframes spin {

@@ -60,13 +60,9 @@ export const SignMessage: FC = () => {
       {signedMessage && (
         <>
           <h3>Signed Message</h3>
-          <textarea
-            data-testid={dataTestIds.testPage.signMessage.signedMessage}
-            style={{ width: '100%', height: '200px', resize: 'none' }}
-            value={signedMessage}
-            readOnly
-            onChange={() => {}}
-          />
+          <pre data-testid={dataTestIds.testPage.signMessage.signedMessage} className="signedTransactions">
+            {signedMessage}
+          </pre>
         </>
       )}
     </div>

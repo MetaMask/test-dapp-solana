@@ -67,7 +67,7 @@ export async function getTokenProperties(
 /**
  * Get the instructions to send a token from one address to another.
  */
-async function getTokenTransfertInstruction(
+async function getTokenTransferInstruction(
   fromPublicKey: PublicKey,
   toPublicKey: PublicKey,
   amount: number,
@@ -138,7 +138,7 @@ export const SendWSol: FC = () => {
   }, []);
 
   /**
-   * Handle the change of the checkbox to send one transaction by transfert.
+   * Handle the change of the checkbox to send one transaction by transfer.
    */
   const handleInMultipleTransactionsChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInMultipleTransactions(e.target.checked);
@@ -166,7 +166,7 @@ export const SendWSol: FC = () => {
           const messageV0 = new TransactionMessage({
             payerKey: publicKey,
             recentBlockhash: latestBlockhash.blockhash,
-            instructions: await getTokenTransfertInstruction(publicKey, toPubkey, amount, connection),
+            instructions: await getTokenTransferInstruction(publicKey, toPubkey, amount, connection),
           }).compileToV0Message();
           const transaction = new VersionedTransaction(messageV0);
 
@@ -180,7 +180,7 @@ export const SendWSol: FC = () => {
       instructions: (
         await Promise.all(
           selectedAddresses.map(
-            async (toPubkey) => await getTokenTransfertInstruction(publicKey, toPubkey, amount, connection),
+            async (toPubkey) => await getTokenTransferInstruction(publicKey, toPubkey, amount, connection),
           ),
         )
       ).flat(),
@@ -240,7 +240,7 @@ export const SendWSol: FC = () => {
     <div data-testid={dataTestIds.testPage.sendWSol.id}>
       <p>Send WSOL to X addresses</p>
       <form
-        onSubmit={(e) => e.preventDefault()} // Empêcher le rechargement de la page
+        onSubmit={(e) => e.preventDefault()} // Prevent page reload
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <label>
@@ -258,7 +258,7 @@ export const SendWSol: FC = () => {
           </label>
           {nbRandomAddress > 1 ? (
             <label>
-              One transaction by transfert:
+              One transaction by transfer:
               <input
                 data-testid={dataTestIds.testPage.sendWSol.multipleTransactions}
                 type="checkbox"
@@ -303,13 +303,9 @@ export const SendWSol: FC = () => {
         {signedTransactions.length >= 1 && (
           <>
             <h3>Signed transactions</h3>
-            <textarea
-              data-testid={dataTestIds.testPage.sendWSol.signedTransactions}
-              style={{ width: '100%', height: '200px', resize: 'none' }}
-              value={signedTransactions.map((tx) => Buffer.from(tx.signatures[0]).toString('base64')).join('\n')}
-              readOnly
-              onChange={() => {}}
-            />
+            <pre data-testid={dataTestIds.testPage.sendWSol.signedTransactions} className="signedTransactions">
+              {signedTransactions.map((tx) => Buffer.from(tx.signatures[0]).toString('base64')).join('\n')}
+            </pre>
           </>
         )}
 
