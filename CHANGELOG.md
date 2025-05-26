@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.3.0]
 
-### Uncategorized
+### Changed
 
-- feat: build the test file in CommonJS ([#33](https://github.com/MetaMask/test-dapp-solana/pull/33))
+- feat: build the test file with CommonJS ([#33](https://github.com/MetaMask/test-dapp-solana/pull/33))
 
 ## [0.2.0]
 
