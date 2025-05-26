@@ -33,6 +33,7 @@ export const dataTestIds = pathifyObject({
     header: {
       id: true,
       endpoint: true,
+      updateEndpoint: true,
       connect: true,
       disconnect: true,
       account: true,
