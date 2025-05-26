@@ -9,6 +9,7 @@ export declare const dataTestIds: Pathify<{
         readonly header: {
             readonly id: true;
             readonly endpoint: true;
+            readonly updateEndpoint: true;
             readonly connect: true;
             readonly disconnect: true;
             readonly account: true;
