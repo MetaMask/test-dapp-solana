@@ -86,7 +86,11 @@ export const Header: FC<HeaderProps> = () => {
             }}
           />
           {showUpdateButton && (
-            <button type="submit" style={{ padding: '0.25rem 0.5rem' }}>
+            <button
+              data-testid={dataTestIds.testPage.header.updateEndpoint}
+              type="submit"
+              style={{ padding: '0.25rem 0.5rem' }}
+            >
               Update
             </button>
           )}
