@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.defaultAddresses = exports.dataTestIds = void 0;
 function pathifyObject(obj) {
     function inner(obj, path = '') {
         const result = {};
@@ -20,11 +23,12 @@ function pathifyObject(obj) {
 /**
  * The list of test ids to access elements in the e2e2 tests.
  */
-export const dataTestIds = pathifyObject({
+exports.dataTestIds = pathifyObject({
     testPage: {
         header: {
             id: true,
             endpoint: true,
+            updateEndpoint: true,
             connect: true,
             disconnect: true,
             account: true,
@@ -85,7 +89,7 @@ export const dataTestIds = pathifyObject({
 /**
  * The list of default addresses to use in the tests.
  */
-export const defaultAddresses = [
+exports.defaultAddresses = [
     'JCp15hm4zQoghYFK277XE7xBBKVxmq4NBHU6TGV29Kqt',
     '9Yog6MiFfJFBt6rcf8Gt8s6TJ2smopTQJarsvpoLfQAN',
     '55EdfyK2ybuxmKXS54ciwND48xpDghrHChgXtkqNr9Wu',
