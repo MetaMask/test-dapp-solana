@@ -124,9 +124,9 @@ export const SendWSol: FC = () => {
   const { publicKey, signTransaction, signAllTransactions, sendTransaction } = useWallet();
   const [signedTransactions, setSignedTransactions] = useState<VersionedTransaction[]>([]);
   const [sentTransactions, setSentTransactions] = useState<string[]>([]);
-  const [nbRandomAddress, setNbRandomAddress] = useState(1);
-  const [amount, setAmount] = useState(0.1);
-  const [inMultipleTransactions, setInMultipleTransactions] = useState(false);
+  const [nbRandomAddress, setNbRandomAddress] = useState(2);
+  const [amount, setAmount] = useState(0.001);
+  const [inMultipleTransactions, setInMultipleTransactions] = useState(true);
   const [loading, setLoading] = useState(false);
 
   /**
