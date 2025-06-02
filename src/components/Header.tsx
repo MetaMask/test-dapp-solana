@@ -74,6 +74,7 @@ export const Header: FC<HeaderProps> = () => {
           style={{ wordWrap: 'break-word', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}
         >
           <input
+            id={dataTestIds.testPage.header.endpoint}
             data-testid={dataTestIds.testPage.header.endpoint}
             type="text"
             value={tempEndpoint}
