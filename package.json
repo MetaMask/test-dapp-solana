@@ -21,7 +21,7 @@
     "dist/"
   ],
   "scripts": {
-    "dev": "vite --host 0.0.0.0 --port 8081",
+    "dev": "vite --host 0.0.0.0 --port 8081 --force",
     "build": "tsc -b && vite build && tsc --project tsconfig.test.json --outDir dist",
     "format": "biome format",
     "format:fix": "biome format --write",
@@ -50,6 +50,10 @@
     ]
   },
   "dependencies": {
+    "@metamask/connect": "^0.1.0",
+    "@metamask/multichain-api-client": "^0.10.0",
+    "@metamask/rpc-errors": "^7.0.3",
+    "@metamask/solana-wallet-standard": "^0.6.0",
     "@solana/spl-token": "^0.4.13",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-react": "^0.15.35",
@@ -106,7 +110,8 @@
       "vite>esbuild": false,
       "jsdom>ws>bufferutil": false,
       "jsdom>ws>utf-8-validate": false,
-      "@solana/spl-token>@solana/buffer-layout-utils>bigint-buffer": false
+      "@solana/spl-token>@solana/buffer-layout-utils>bigint-buffer": false,
+      "@metamask/connect-multichain>@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs": false
     }
   }
 }

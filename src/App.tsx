@@ -1,12 +1,13 @@
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { type FC, useMemo } from 'react';
+import { type FC, useEffect, useMemo, useRef } from 'react';
 
 import '@solana/wallet-adapter-react-ui/styles.css';
-import { TestPage } from './pages/TestPage';
-
+import { registerSolanaWalletStandard } from '@metamask/solana-wallet-standard';
 import { CoinbaseWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { useSDK } from './SDKProvider';
 import { EndpointProvider, useEndpoint } from './context/EndpointProvider';
+import { TestPage } from './pages/TestPage';
 
 const AppContent: FC = () => {
   const { endpoint } = useEndpoint();
@@ -15,6 +16,24 @@ const AppContent: FC = () => {
     () => [new PhantomWalletAdapter(), new CoinbaseWalletAdapter({ endpoint }), new SolflareWalletAdapter()],
     [endpoint],
   );
+
+  const { getProvider } = useSDK();
+  const registered = useRef(false);
+  useEffect(() => {
+    if (registered.current) {
+      return;
+    }
+    registered.current = true;
+    (async () => {
+      // TODO: fix this
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for the SDK to be initialized
+
+      const provider = await getProvider();
+      if (provider) {
+        registerSolanaWalletStandard({ client: provider });
+      }
+    })();
+  }, [getProvider]);
 
   return (
     <ConnectionProvider endpoint={endpoint} config={{ commitment: 'confirmed' }}>
