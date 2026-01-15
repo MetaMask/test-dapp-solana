@@ -827,7 +827,7 @@ __metadata:
 
 "@metamask/connect-multichain@file:../connect-monorepo/packages/connect-multichain::locator=%40metamask%2Ftest-dapp-solana%40workspace%3A.":
   version: 0.4.0
-  resolution: "@metamask/connect-multichain@file:../connect-monorepo/packages/connect-multichain#../connect-monorepo/packages/connect-multichain::hash=260014&locator=%40metamask%2Ftest-dapp-solana%40workspace%3A."
+  resolution: "@metamask/connect-multichain@file:../connect-monorepo/packages/connect-multichain#../connect-monorepo/packages/connect-multichain::hash=af810f&locator=%40metamask%2Ftest-dapp-solana%40workspace%3A."
   dependencies:
     "@metamask/analytics": "workspace:^"
     "@metamask/mobile-wallet-protocol-core": "npm:^0.3.0"
@@ -847,7 +847,7 @@ __metadata:
     ws: "npm:^8.18.3"
   peerDependencies:
     "@react-native-async-storage/async-storage": ^1.23
-  checksum: 10/1048ed340ef174a7975e3d496d94ccc0f1d0bc22e71b744430bd3c2ea5f681df5540e5bfeac19108bf8d96f0c010562693df2f15f2cc0f821faad992d84efc82
+  checksum: 10/581bf1ada03e11b413f3ca536e9e5404b0577846e63240a1274ad088492cdc5365a23171e86190a5b429f2b201c44bb0331b76e1abf287a300eb7c9cd22f504b
   languageName: node
   linkType: hard
 

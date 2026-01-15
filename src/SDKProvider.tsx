@@ -6,7 +6,7 @@ import {
   type SDKState,
   type Scope,
   type SessionData,
-  createMetamaskConnect,
+  createMultichainClient,
   getInfuraRpcUrls,
 } from '@metamask/connect-multichain';
 import type { MultichainApiClient } from '@metamask/multichain-api-client';
@@ -38,16 +38,13 @@ export const SDKProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (!sdkRef.current) {
-      sdkRef.current = createMetamaskConnect({
+      sdkRef.current = createMultichainClient({
         dapp: {
           name: 'playground',
           url: 'https://playground.metamask.io',
         },
         api: {
           supportedNetworks: getInfuraRpcUrls(process.env.INFURA_API_KEY || ''),
-        },
-        analytics: {
-          enabled: false,
         },
         transport: {
           extensionId: METAMASK_PROD_CHROME_ID,
