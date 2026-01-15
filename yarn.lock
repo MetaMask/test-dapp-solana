@@ -801,11 +801,11 @@ __metadata:
   linkType: hard
 
 "@metamask/analytics@file:../connect-monorepo/packages/analytics::locator=%40metamask%2Ftest-dapp-solana%40workspace%3A.":
-  version: 0.1.0
-  resolution: "@metamask/analytics@file:../connect-monorepo/packages/analytics#../connect-monorepo/packages/analytics::hash=336904&locator=%40metamask%2Ftest-dapp-solana%40workspace%3A."
+  version: 0.2.0
+  resolution: "@metamask/analytics@file:../connect-monorepo/packages/analytics#../connect-monorepo/packages/analytics::hash=aadd4b&locator=%40metamask%2Ftest-dapp-solana%40workspace%3A."
   dependencies:
     openapi-fetch: "npm:^0.13.5"
-  checksum: 10/3f41076c160ca172e93ccf4ceabb6fe0063f0ce4a102375132f185f9038b98670f4f0da96be2c7e11af476022c63c01597e8dbba66093acafa1a38edba5379dd
+  checksum: 10/bd76eaadc46441f1a821589cbc297a218e5535fb25b30664131ec63dad7427dce5e49e684b9030ff2c78d3c4e8d30ecdfc5315de47e26f46d04173269b813539
   languageName: node
   linkType: hard
 
@@ -826,13 +826,13 @@ __metadata:
   linkType: hard
 
 "@metamask/connect-multichain@file:../connect-monorepo/packages/connect-multichain::locator=%40metamask%2Ftest-dapp-solana%40workspace%3A.":
-  version: 0.1.0
-  resolution: "@metamask/connect-multichain@file:../connect-monorepo/packages/connect-multichain#../connect-monorepo/packages/connect-multichain::hash=ff7df5&locator=%40metamask%2Ftest-dapp-solana%40workspace%3A."
+  version: 0.4.0
+  resolution: "@metamask/connect-multichain@file:../connect-monorepo/packages/connect-multichain#../connect-monorepo/packages/connect-multichain::hash=260014&locator=%40metamask%2Ftest-dapp-solana%40workspace%3A."
   dependencies:
     "@metamask/analytics": "workspace:^"
     "@metamask/mobile-wallet-protocol-core": "npm:^0.3.0"
     "@metamask/mobile-wallet-protocol-dapp-client": "npm:^0.2.1"
-    "@metamask/multichain-api-client": "npm:^0.8.1"
+    "@metamask/multichain-api-client": "npm:^0.10.1"
     "@metamask/multichain-ui": "workspace:^"
     "@metamask/onboarding": "npm:^1.0.1"
     "@metamask/rpc-errors": "npm:^7.0.3"
@@ -847,7 +847,7 @@ __metadata:
     ws: "npm:^8.18.3"
   peerDependencies:
     "@react-native-async-storage/async-storage": ^1.23
-  checksum: 10/b35d1fcea4a1ed74bc470c678cec6dad235ad2567dcabfcf4556f0483aaadf291e34edc701854d113cb8ae870d045c0a719b38e650131bfffd4d7fd83cda4a3b
+  checksum: 10/1048ed340ef174a7975e3d496d94ccc0f1d0bc22e71b744430bd3c2ea5f681df5540e5bfeac19108bf8d96f0c010562693df2f15f2cc0f821faad992d84efc82
   languageName: node
   linkType: hard
 
@@ -880,20 +880,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/multichain-api-client@npm:^0.8.1":
-  version: 0.8.1
-  resolution: "@metamask/multichain-api-client@npm:0.8.1"
-  checksum: 10/a6e079b4acce94d25ffdccbbf7f09ce1b5c650ceec6119e7002f8095cd1eb18c59a26fbfe0ac775c60862e38c657273dad507e27ddbdc166fea404b03f54bdb6
+"@metamask/multichain-api-client@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "@metamask/multichain-api-client@npm:0.10.1"
+  checksum: 10/adedb90f433cd619eee54943197dc32eb30e461173e928ea698ec70bf8c6780d9ac0bb9b12a22a17f984170841c071d228aa49e6988d5060e8a30e99c433a8f5
   languageName: node
   linkType: hard
 
 "@metamask/multichain-ui@file:../connect-monorepo/packages/multichain-ui::locator=%40metamask%2Ftest-dapp-solana%40workspace%3A.":
-  version: 0.1.0
-  resolution: "@metamask/multichain-ui@file:../connect-monorepo/packages/multichain-ui#../connect-monorepo/packages/multichain-ui::hash=b68281&locator=%40metamask%2Ftest-dapp-solana%40workspace%3A."
+  version: 0.3.0
+  resolution: "@metamask/multichain-ui@file:../connect-monorepo/packages/multichain-ui#../connect-monorepo/packages/multichain-ui::hash=eeda99&locator=%40metamask%2Ftest-dapp-solana%40workspace%3A."
   dependencies:
     "@paulmillr/qr": "npm:^0.2.1"
     qr-code-styling: "npm:^1.9.2"
-  checksum: 10/e68ad8872c11a7c45d504802b0a57904aa2a04057f2529c90c262e3f67c8c41c6678a70beecabc7f5fdd697d37ad698c642237ccfe93f02dbe5549ee70341965
+  checksum: 10/5dc1eeb58f34b40239d312dd28950561ba19e4e1efcb95f1a4ed7c15b35ff730c2e35b2e7cc96c3951a0b4cabea8a0467c79c1ce567725821abef6e78a041b59
   languageName: node
   linkType: hard
 
