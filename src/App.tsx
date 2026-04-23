@@ -1,19 +1,53 @@
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { type FC, useMemo } from 'react';
+import { type FC, useMemo, useRef } from 'react';
 
 import '@solana/wallet-adapter-react-ui/styles.css';
 import { TestPage } from './pages/TestPage';
 
 import { CoinbaseWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
+import type { SolanaChain } from '@solana/wallet-standard-chains';
+import { WalletConnectWalletAdapter } from '@walletconnect/solana-adapter';
 import { EndpointProvider, useEndpoint } from './context/EndpointProvider';
 
+function getWalletAdapterNetwork(
+  chain: SolanaChain,
+): WalletAdapterNetwork.Mainnet | WalletAdapterNetwork.Devnet {
+  if (chain === 'solana:mainnet') {
+    return WalletAdapterNetwork.Mainnet;
+  }
+  return WalletAdapterNetwork.Devnet;
+}
+
 const AppContent: FC = () => {
-  const { endpoint } = useEndpoint();
+  const { endpoint, network } = useEndpoint();
+
+  // Capture the network/endpoint at mount time so adapters are only
+  // created once. Network/endpoint switches are handled by
+  // ConnectionProvider, avoiding a full reconnect.
+  const initialEndpoint = useRef(endpoint);
+  const initialNetwork = useRef(network);
 
   const wallets = useMemo(
-    () => [new PhantomWalletAdapter(), new CoinbaseWalletAdapter({ endpoint }), new SolflareWalletAdapter()],
-    [endpoint],
+    () => [
+      new PhantomWalletAdapter(),
+      new CoinbaseWalletAdapter({ endpoint: initialEndpoint.current }),
+      new SolflareWalletAdapter(),
+      new WalletConnectWalletAdapter({
+        network: getWalletAdapterNetwork(initialNetwork.current),
+        options: {
+          projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID ?? '',
+          metadata: {
+            name: 'MetaMask Solana Test DApp',
+            description: 'Test DApp for Solana',
+            url: window.location.origin,
+            icons: [],
+          },
+        },
+      }),
+    ],
+    [],
   );
 
   return (
