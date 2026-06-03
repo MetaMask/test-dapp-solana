@@ -5,11 +5,22 @@ import { type FC, useCallback, useState } from 'react';
 import { dataTestIds, defaultAddresses } from '../test';
 import { Button } from './Button';
 
+function getSignatureForPublicKey(transaction: VersionedTransaction, publicKey: PublicKey): Uint8Array | undefined {
+  const signerIndex = transaction.message.staticAccountKeys.findIndex((accountKey) => accountKey.equals(publicKey));
+
+  if (signerIndex < 0) {
+    return undefined;
+  }
+
+  return transaction.signatures[signerIndex];
+}
+
 export const PartialSignTransaction: FC = () => {
   const { connection } = useConnection();
   const { publicKey, signTransaction } = useWallet();
   const [signedTransaction, setSignedTransaction] = useState<VersionedTransaction | undefined>();
   const [loading, setLoading] = useState(false);
+  const signature = signedTransaction && publicKey ? getSignatureForPublicKey(signedTransaction, publicKey) : undefined;
 
   /**
    * Get the transaction to partially sign.
@@ -77,7 +88,7 @@ export const PartialSignTransaction: FC = () => {
             data-testid={dataTestIds.testPage.partialSignTransaction.signedTransaction}
             className="signedTransactions"
           >
-            {Buffer.from(signedTransaction?.signatures[0]!).toString('base64')}
+            {signature ? Buffer.from(signature).toString('base64') : 'No signature found for connected account'}
           </pre>
         </>
       )}
