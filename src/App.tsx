@@ -1,4 +1,4 @@
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { type Adapter, WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { type FC, useMemo, useRef } from 'react';
@@ -11,13 +11,35 @@ import type { SolanaChain } from '@solana/wallet-standard-chains';
 import { WalletConnectWalletAdapter } from '@walletconnect/solana-adapter';
 import { EndpointProvider, useEndpoint } from './context/EndpointProvider';
 
-function getWalletAdapterNetwork(
-  chain: SolanaChain,
-): WalletAdapterNetwork.Mainnet | WalletAdapterNetwork.Devnet {
-  if (chain === 'solana:mainnet') {
-    return WalletAdapterNetwork.Mainnet;
+export function createWalletAdapters(
+  endpoint: string,
+  network: SolanaChain,
+  origin = window.location.origin,
+): Adapter[] {
+  const wallets: Adapter[] = [
+    new PhantomWalletAdapter(),
+    new CoinbaseWalletAdapter({ endpoint }),
+    new SolflareWalletAdapter(),
+  ];
+
+  if (network === 'solana:mainnet') {
+    wallets.push(
+      new WalletConnectWalletAdapter({
+        network: WalletAdapterNetwork.Mainnet,
+        options: {
+          projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID ?? '',
+          metadata: {
+            name: 'MetaMask Solana Test DApp',
+            description: 'Test DApp for Solana',
+            url: origin,
+            icons: [],
+          },
+        },
+      }),
+    );
   }
-  return WalletAdapterNetwork.Devnet;
+
+  return wallets;
 }
 
 const AppContent: FC = () => {
@@ -29,26 +51,7 @@ const AppContent: FC = () => {
   const initialEndpoint = useRef(endpoint);
   const initialNetwork = useRef(network);
 
-  const wallets = useMemo(
-    () => [
-      new PhantomWalletAdapter(),
-      new CoinbaseWalletAdapter({ endpoint: initialEndpoint.current }),
-      new SolflareWalletAdapter(),
-      new WalletConnectWalletAdapter({
-        network: getWalletAdapterNetwork(initialNetwork.current),
-        options: {
-          projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID ?? '',
-          metadata: {
-            name: 'MetaMask Solana Test DApp',
-            description: 'Test DApp for Solana',
-            url: window.location.origin,
-            icons: [],
-          },
-        },
-      }),
-    ],
-    [],
-  );
+  const wallets = useMemo(() => createWalletAdapters(initialEndpoint.current, initialNetwork.current), []);
 
   return (
     <ConnectionProvider endpoint={endpoint} config={{ commitment: 'confirmed' }}>
