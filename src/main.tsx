@@ -9,8 +9,8 @@ import { App } from './App.tsx';
 // so rendering doesn't need to wait on this.
 createSolanaClient({
   dapp: {
-    name: 'playground',
-    url: 'https://playground.metamask.io',
+    name: 'MetaMask Solana Test DApp',
+    url: window.location.origin,
   },
 }).catch((error) => {
   console.error('Failed to initialize MetaMask Solana client', error);

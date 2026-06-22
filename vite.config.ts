@@ -39,7 +39,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      // Force all bowser imports to use the root-level bowser package (v2.13.1)
+      // Force all bowser imports to resolve to a single root-level copy whose
+      // es5 build has working named exports (the package's ESM entry doesn't).
       bowser: 'bowser/es5.js',
     },
   },
