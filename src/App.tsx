@@ -1,7 +1,6 @@
-import { createSolanaClient } from '@metamask/connect-solana';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { type FC, useEffect, useMemo, useRef } from 'react';
+import { type FC, useMemo } from 'react';
 
 import '@solana/wallet-adapter-react-ui/styles.css';
 import { CoinbaseWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
@@ -11,30 +10,12 @@ import { TestPage } from './pages/TestPage';
 const AppContent: FC = () => {
   const { endpoint } = useEndpoint();
 
-  // Adapter-based wallets are still registered alongside MetaMask. MetaMask is
-  // discovered via Wallet Standard auto-registration (see createSolanaClient below).
+  // Phantom/Coinbase/Solflare register via their adapters. MetaMask registers
+  // separately via Wallet Standard auto-discovery (see createSolanaClient in main.tsx).
   const wallets = useMemo(
     () => [new PhantomWalletAdapter(), new CoinbaseWalletAdapter({ endpoint }), new SolflareWalletAdapter()],
     [endpoint],
   );
-
-  const registered = useRef(false);
-  useEffect(() => {
-    if (registered.current) {
-      return;
-    }
-    registered.current = true;
-    // createSolanaClient registers MetaMask with the Wallet Standard registry,
-    // so the wallet adapter discovers it without adding it to `wallets`.
-    createSolanaClient({
-      dapp: {
-        name: 'playground',
-        url: 'https://playground.metamask.io',
-      },
-    }).catch((error) => {
-      console.error('Failed to initialize MetaMask Solana client', error);
-    });
-  }, []);
 
   return (
     <ConnectionProvider endpoint={endpoint} config={{ commitment: 'confirmed' }}>
