@@ -973,7 +973,6 @@ __metadata:
     "@vitejs/plugin-react-swc": "npm:^3.5.0"
     "@walletconnect/solana-adapter": "npm:^0.0.8"
     "@yarnpkg/types": "npm:^4.0.1"
-    bowser: "npm:^2.13.1"
     buffer: "npm:^6.0.3"
     depcheck: "npm:^1.4.7"
     jsdom: "npm:^26.0.0"
@@ -5012,7 +5011,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bowser@npm:^2.11.0, bowser@npm:^2.13.1, bowser@npm:^2.9.0":
+"bowser@npm:^2.11.0, bowser@npm:^2.9.0":
   version: 2.14.1
   resolution: "bowser@npm:2.14.1"
   checksum: 10/a002f0795ef360314c75552b94daa42f74473f38b34255cfa959779e875806ef8e41b24ec63a533717798c8ef70bb991aef3037a2bb5dd32e8f507b39a509163

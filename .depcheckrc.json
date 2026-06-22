@@ -8,7 +8,6 @@
     "prettier-plugin-packagejson",
     "ts-node",
     "typedoc",
-    "bowser",
     "buffer"
   ]
 }
