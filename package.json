@@ -49,17 +49,8 @@
       "last 1 safari version"
     ]
   },
-  "resolutions": {
-    "@metamask/connect-multichain": "file:../connect-monorepo/packages/connect-multichain",
-    "@metamask/multichain-ui": "file:../connect-monorepo/packages/multichain-ui",
-    "@metamask/analytics": "file:../connect-monorepo/packages/analytics"
-  },
   "dependencies": {
-    "@metamask/connect-multichain": "file:../connect-monorepo/packages/connect-multichain",
     "@metamask/connect-solana": "^2.1.0",
-    "@metamask/multichain-api-client": "^0.10.0",
-    "@metamask/rpc-errors": "^7.0.3",
-    "@metamask/solana-wallet-standard": "^0.6.0",
     "@solana/spl-token": "^0.4.13",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-react": "^0.15.35",
@@ -118,7 +109,7 @@
       "jsdom>ws>bufferutil": false,
       "jsdom>ws>utf-8-validate": false,
       "@solana/spl-token>@solana/buffer-layout-utils>bigint-buffer": false,
-      "@metamask/connect-multichain>@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs": false
+      "@metamask/connect-solana>@metamask/connect-multichain>@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs": false
     }
   }
 }
