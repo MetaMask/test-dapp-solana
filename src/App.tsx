@@ -1,57 +1,40 @@
-import { type Adapter, WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import { createSolanaClient } from '@metamask/connect-solana';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { type FC, useMemo, useRef } from 'react';
+import { type FC, useEffect, useMemo, useRef } from 'react';
 
 import '@solana/wallet-adapter-react-ui/styles.css';
+import { CoinbaseWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { EndpointProvider, useEndpoint } from './context/EndpointProvider';
 import { TestPage } from './pages/TestPage';
 
-import { CoinbaseWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
-import type { SolanaChain } from '@solana/wallet-standard-chains';
-import { WalletConnectWalletAdapter } from '@walletconnect/solana-adapter';
-import { EndpointProvider, useEndpoint } from './context/EndpointProvider';
-
-export function createWalletAdapters(
-  endpoint: string,
-  network: SolanaChain,
-  origin = window.location.origin,
-): Adapter[] {
-  const wallets: Adapter[] = [
-    new PhantomWalletAdapter(),
-    new CoinbaseWalletAdapter({ endpoint }),
-    new SolflareWalletAdapter(),
-  ];
-
-  if (network === 'solana:mainnet') {
-    wallets.push(
-      new WalletConnectWalletAdapter({
-        network: WalletAdapterNetwork.Mainnet,
-        options: {
-          projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID ?? '',
-          metadata: {
-            name: 'MetaMask Solana Test DApp',
-            description: 'Test DApp for Solana',
-            url: origin,
-            icons: [],
-          },
-        },
-      }),
-    );
-  }
-
-  return wallets;
-}
-
 const AppContent: FC = () => {
-  const { endpoint, network } = useEndpoint();
+  const { endpoint } = useEndpoint();
 
-  // Capture the network/endpoint at mount time so adapters are only
-  // created once. Network/endpoint switches are handled by
-  // ConnectionProvider, avoiding a full reconnect.
-  const initialEndpoint = useRef(endpoint);
-  const initialNetwork = useRef(network);
+  // Adapter-based wallets are still registered alongside MetaMask. MetaMask is
+  // discovered via Wallet Standard auto-registration (see createSolanaClient below).
+  const wallets = useMemo(
+    () => [new PhantomWalletAdapter(), new CoinbaseWalletAdapter({ endpoint }), new SolflareWalletAdapter()],
+    [endpoint],
+  );
 
-  const wallets = useMemo(() => createWalletAdapters(initialEndpoint.current, initialNetwork.current), []);
+  const registered = useRef(false);
+  useEffect(() => {
+    if (registered.current) {
+      return;
+    }
+    registered.current = true;
+    // createSolanaClient registers MetaMask with the Wallet Standard registry,
+    // so the wallet adapter discovers it without adding it to `wallets`.
+    createSolanaClient({
+      dapp: {
+        name: 'playground',
+        url: 'https://playground.metamask.io',
+      },
+    }).catch((error) => {
+      console.error('Failed to initialize MetaMask Solana client', error);
+    });
+  }, []);
 
   return (
     <ConnectionProvider endpoint={endpoint} config={{ commitment: 'confirmed' }}>
