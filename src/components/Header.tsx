@@ -3,6 +3,7 @@ import { WalletDisconnectButton, WalletMultiButton } from '@solana/wallet-adapte
 import { getChainForEndpoint } from '@solana/wallet-standard-util';
 import { type FC, useCallback, useState } from 'react';
 import { useEndpoint } from '../context/EndpointProvider';
+import { useMetaMaskReady } from '../hooks/useMetaMaskReady';
 import { dataTestIds } from '../test';
 import { Account } from './Account';
 
@@ -18,6 +19,7 @@ const isValidUrl = (url: string): boolean => {
  */
 export const Header: FC<HeaderProps> = () => {
   const { publicKey, connected } = useWallet();
+  const isMetaMaskReady = useMetaMaskReady();
   const { endpoint, setEndpoint } = useEndpoint();
   const [tempEndpoint, setTempEndpoint] = useState(endpoint);
   const [showUpdateButton, setShowUpdateButton] = useState(false);
@@ -111,6 +113,10 @@ export const Header: FC<HeaderProps> = () => {
         <div data-testid={dataTestIds.testPage.header.connectionStatus}>
           {connected ? 'Connected' : 'Not connected'}
         </div>
+      </div>
+      <div style={{ wordWrap: 'break-word' }}>
+        <strong>MetaMask:</strong>
+        <div data-testid={dataTestIds.testPage.header.metamaskReady}>{isMetaMaskReady ? 'ready' : 'not-ready'}</div>
       </div>
       <div style={{ wordWrap: 'break-word' }}>
         <strong>Wallet:</strong>
