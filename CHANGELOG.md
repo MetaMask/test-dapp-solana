@@ -9,24 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.4.0]
 
-### Uncategorized
-
-- feat: expose MetaMask readiness in header
-- fix: use the test dapp's own identity for createSolanaClient
-- chore: drop unnecessary direct bowser dependency
-- chore: satisfy yarn lint after adding connect-solana
-- Restore the WalletConnect adapter
-- refactor: register Solana client at bootstrap instead of in a useEffect
-- refactor: consume connect-solana deps from npm, not local file: links
-- feat: integrate MetaMask Connect Solana wallet-standard client
-- ci: add top-level publish workflow permissions
-- chore: migrate npm publishing to trusted publishing
-- fix: partial sign ([#45](https://github.com/MetaMask/test-dapp-solana/pull/45))
-- feat: add WalletConnect Solana adapter ([#44](https://github.com/MetaMask/test-dapp-solana/pull/44))
-
 ### Added
 
+- Add WalletConnect Solana adapter ([#44](https://github.com/MetaMask/test-dapp-solana/pull/44))
+- Integrate MetaMask Connect Solana wallet-standard client ([#47](https://github.com/MetaMask/test-dapp-solana/pull/47))
 - Expose MetaMask readiness in the test dapp header ([#49](https://github.com/MetaMask/test-dapp-solana/pull/49))
+
+### Fixed
+
+- Fix partial transaction signing ([#45](https://github.com/MetaMask/test-dapp-solana/pull/45))
 
 ## [0.3.1]
 
