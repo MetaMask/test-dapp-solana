@@ -9,12 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.4.2]
 
-### Uncategorized
+### Changed
 
-- chore: add networks team to codeowners
-- 0.4.1
-- fix(ci): pin Node.js to 22
-- fix(ci): use token exchange for docs publishing
+- Add networks team to codeowners ([#52](https://github.com/MetaMask/test-dapp-solana/pull/52))
 
 ## [0.4.1]
 
