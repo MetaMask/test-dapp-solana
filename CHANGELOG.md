@@ -7,12 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.4.1]
-
-### Fixed
-
-- fix(ci): use token exchange for docs publishing ([#51](https://github.com/MetaMask/test-dapp-solana/pull/51))
-
 ## [0.4.0]
 
 ### Added
@@ -49,8 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[Unreleased]: https://github.com/MetaMask/test-dapp-solana/compare/v0.4.1...HEAD
-[0.4.1]: https://github.com/MetaMask/test-dapp-solana/compare/v0.4.0...v0.4.1
+[Unreleased]: https://github.com/MetaMask/test-dapp-solana/compare/v0.4.0...HEAD
 [0.4.0]: https://github.com/MetaMask/test-dapp-solana/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/MetaMask/test-dapp-solana/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/MetaMask/test-dapp-solana/compare/v0.2.0...v0.3.0
