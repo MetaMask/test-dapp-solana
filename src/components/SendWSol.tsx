@@ -1,11 +1,3 @@
-import {
-  ASSOCIATED_TOKEN_PROGRAM_ID,
-  MintLayout,
-  TOKEN_PROGRAM_ID,
-  createAssociatedTokenAccountInstruction,
-  createTransferCheckedInstruction,
-  getAssociatedTokenAddress,
-} from '@solana/spl-token';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import {
   type Connection,
@@ -18,6 +10,14 @@ import { PublicKey } from '@solana/web3.js';
 import type { FC } from 'react';
 import { useCallback, useState } from 'react';
 import { WSOL_MINT } from '../config';
+import {
+  ASSOCIATED_TOKEN_PROGRAM_ID,
+  TOKEN_PROGRAM_ID,
+  createAssociatedTokenAccountInstruction,
+  createTransferCheckedInstruction,
+  decodeMintAccount,
+  getAssociatedTokenAddress,
+} from '../splToken';
 import { dataTestIds, defaultAddresses } from '../test';
 import { Button } from './Button';
 import { TransactionHash } from './TransactionHash';
@@ -51,7 +51,7 @@ export async function getTokenProperties(
     throw new Error('Failed to fetch account data');
   }
 
-  const deserialize = MintLayout.decode(new Uint8Array(accountInfo.data));
+  const deserialize = decodeMintAccount(new Uint8Array(accountInfo.data));
 
   return {
     mintable: deserialize.mintAuthorityOption === 0,

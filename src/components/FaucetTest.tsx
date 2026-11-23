@@ -1,14 +1,14 @@
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { SystemProgram, Transaction } from '@solana/web3.js';
+import { type FC, useCallback, useEffect, useState } from 'react';
+import { WSOL_MINT } from '../config';
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
   TOKEN_PROGRAM_ID,
   createAssociatedTokenAccountInstruction,
   createSyncNativeInstruction,
   getAssociatedTokenAddress,
-} from '@solana/spl-token';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { SystemProgram, Transaction } from '@solana/web3.js';
-import { type FC, useCallback, useEffect, useState } from 'react';
-import { WSOL_MINT } from '../config';
+} from '../splToken';
 import { dataTestIds } from '../test';
 import { Button } from './Button';
 
