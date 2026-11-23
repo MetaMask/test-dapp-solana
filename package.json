@@ -51,14 +51,13 @@
   },
   "dependencies": {
     "@metamask/connect-solana": "^2.1.0",
-    "@solana/spl-token": "^0.4.13",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-react": "^0.15.35",
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",
     "@solana/wallet-standard-chains": "^1.1.1",
     "@solana/wallet-standard-util": "^1.1.2",
-    "@solana/web3.js": "^1.95.5",
+    "@solana/web3.js": "^1.99.0",
     "@walletconnect/solana-adapter": "^0.0.8",
     "buffer": "^6.0.3",
     "react": "^18.3.1",
@@ -101,14 +100,10 @@
       "@solana/wallet-adapter-wallets>@solana/wallet-adapter-trezor>@trezor/connect-web>@trezor/connect>@trezor/transport>usb": false,
       "@solana/wallet-adapter-wallets>@solana/wallet-adapter-trezor>@trezor/connect-web>@trezor/connect>@trezor/utxo-lib>blake-hash": false,
       "@solana/wallet-adapter-wallets>@solana/wallet-adapter-trezor>@trezor/connect-web>@trezor/connect>@trezor/utxo-lib>tiny-secp256k1": false,
-      "@solana/web3.js>bigint-buffer": false,
-      "@solana/web3.js>rpc-websockets>bufferutil": false,
-      "@solana/web3.js>rpc-websockets>utf-8-validate": false,
       "@vitejs/plugin-react-swc>@swc/core": false,
       "vite>esbuild": false,
       "jsdom>ws>bufferutil": false,
       "jsdom>ws>utf-8-validate": false,
-      "@solana/spl-token>@solana/buffer-layout-utils>bigint-buffer": false,
       "@metamask/connect-solana>@metamask/connect-multichain>@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs": false
     }
   }
