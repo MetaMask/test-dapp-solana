@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.2]
+
+### Uncategorized
+
+- chore: update codeowners teams
+- chore: add networks team to codeowners
+- 0.4.1
+- fix(ci): pin Node.js to 22
+- fix(ci): use token exchange for docs publishing
+
 ### Fixed
 
 - Replace unmaintained `@solana/spl-token` dependency ([#58](https://github.com/MetaMask/test-dapp-solana/pull/58))
@@ -53,7 +63,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[Unreleased]: https://github.com/MetaMask/test-dapp-solana/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/MetaMask/test-dapp-solana/compare/v0.4.2...HEAD
+[0.4.2]: https://github.com/MetaMask/test-dapp-solana/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/MetaMask/test-dapp-solana/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/MetaMask/test-dapp-solana/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/MetaMask/test-dapp-solana/compare/v0.3.0...v0.3.1
