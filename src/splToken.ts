@@ -87,7 +87,10 @@ export function createTransferCheckedInstruction(
   programId = TOKEN_PROGRAM_ID,
 ): TransactionInstruction {
   const ownerKeys = multiSigners.length
-    ? multiSigners.map((signer) => ({ pubkey: signer, isSigner: true, isWritable: false }))
+    ? [
+        { pubkey: owner, isSigner: false, isWritable: false },
+        ...multiSigners.map((signer) => ({ pubkey: signer, isSigner: true, isWritable: false })),
+      ]
     : [{ pubkey: owner, isSigner: true, isWritable: false }];
 
   // Encoded as u8 tag + u64 LE amount + u8 decimals.

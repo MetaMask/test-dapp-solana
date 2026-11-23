@@ -87,7 +87,7 @@ describe('createTransferCheckedInstruction', () => {
     ]);
   });
 
-  test('replaces the owner key with the given multi-signers', () => {
+  test('keeps the multisig owner key and appends the signers', () => {
     const instruction = createTransferCheckedInstruction(
       EXPECTED_ATA,
       WSOL_MINT,
@@ -103,6 +103,7 @@ describe('createTransferCheckedInstruction', () => {
       { pubkey: EXPECTED_ATA, isSigner: false, isWritable: true },
       { pubkey: WSOL_MINT, isSigner: false, isWritable: false },
       { pubkey: DESTINATION, isSigner: false, isWritable: true },
+      { pubkey: OWNER, isSigner: false, isWritable: false },
       { pubkey: OWNER, isSigner: true, isWritable: false },
       { pubkey: DESTINATION, isSigner: true, isWritable: false },
     ]);
