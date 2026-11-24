@@ -220,8 +220,8 @@ module.exports = defineConfig({
     workspace.set('repository.type', 'git');
     workspace.set('repository.url', `${workspaceRepository}.git`);
 
-    // The package must specify a minimum Node.js version of 18.18.
-    workspace.set('engines.node', '^18.18 || >=20');
+    // The package must specify the expected minimum Node versions
+    workspace.set('engines.node', '^22 || ^24 || >=26');
 
     // The package must provide the location of the entrypoint and its matching
     // type declaration file.
