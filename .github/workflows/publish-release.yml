@@ -18,17 +18,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v3
+        uses: MetaMask/action-checkout-and-setup@097d47e741dfa9c09ee779a020b8851875e72904 # v3.5.2
         with:
           is-high-risk-environment: true
           persist-credentials: false
           ref: ${{ github.sha }}
-      - uses: MetaMask/action-publish-release@v3
+      - uses: MetaMask/action-publish-release@79646c60bec1535eae86a452f48b250ad095495e # v3.3.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: yarn build
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: publish-release-artifacts-${{ github.sha }}
           retention-days: 4
@@ -42,17 +42,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v3
+        uses: MetaMask/action-checkout-and-setup@097d47e741dfa9c09ee779a020b8851875e72904 # v3.5.2
         with:
           is-high-risk-environment: true
           persist-credentials: false
           ref: ${{ github.sha }}
       - name: Restore build artifacts
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: publish-release-artifacts-${{ github.sha }}
       - name: Dry Run Publish
-        uses: MetaMask/action-npm-publish@v7
+        uses: MetaMask/action-npm-publish@640617dc160b8787a825ee363da76a168b3b99cb # v7.0.0
         with:
           dry-run: true
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -69,17 +69,17 @@ jobs:
       id-token: write
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v3
+        uses: MetaMask/action-checkout-and-setup@097d47e741dfa9c09ee779a020b8851875e72904 # v3.5.2
         with:
           is-high-risk-environment: true
           persist-credentials: false
           ref: ${{ github.sha }}
       - name: Restore build artifacts
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: publish-release-artifacts-${{ github.sha }}
       - name: Publish
-        uses: MetaMask/action-npm-publish@v7
+        uses: MetaMask/action-npm-publish@640617dc160b8787a825ee363da76a168b3b99cb # v7.0.0
         with:
           dry-run: false
           # This `NPM_TOKEN` needs to be manually set to publish a package for
@@ -97,7 +97,7 @@ jobs:
     outputs:
       RELEASE_VERSION: ${{ steps.get-release-version.outputs.RELEASE_VERSION }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           persist-credentials: false
           ref: ${{ github.sha }}
