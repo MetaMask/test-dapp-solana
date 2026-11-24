@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update Node.js to v26 ([#60](https://github.com/MetaMask/test-dapp-solana/pull/60))
+- **BREAKING:** Update Node.js to v26 ([#60](https://github.com/MetaMask/test-dapp-solana/pull/60))
+  - Requires Node.js `^22 || ^24 || >=26` (previously `^18.18 || >=20`)
 
 ### Fixed
 
