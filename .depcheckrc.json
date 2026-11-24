@@ -3,11 +3,14 @@
     "@lavamoat/allow-scripts",
     "@lavamoat/preinstall-always-fail",
     "@metamask/auto-changelog",
+    "@metamask/oxlint-config",
+    "@metamask/oxlint-config-*",
     "@types/*",
+    "@vitest/eslint-plugin",
     "@yarnpkg/types",
-    "prettier-plugin-packagejson",
+    "buffer",
+    "oxlint-tsgolint",
     "ts-node",
-    "typedoc",
-    "buffer"
+    "typedoc"
   ]
 }
