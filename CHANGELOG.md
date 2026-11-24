@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Requires Node.js `^22 || ^24 || >=26` (previously `^18.18 || >=20`)
   - Bump `@lavamoat/allow-scripts` to `^5.1.1` and `@metamask/auto-changelog` to `^6.2.1` for Node.js v26 compatibility
 - Bump `action-checkout-and-setup` to v3 ([#61](https://github.com/MetaMask/test-dapp-solana/pull/61))
+- Bump `action-npm-publish` to v7 ([#62](https://github.com/MetaMask/test-dapp-solana/pull/62))
 
 ### Fixed
 
