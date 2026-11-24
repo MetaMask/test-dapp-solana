@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update Node.js to v26 ([#60](https://github.com/MetaMask/test-dapp-solana/pull/60))
+
 ### Fixed
 
 - Replace unmaintained `@solana/spl-token` dependency ([#58](https://github.com/MetaMask/test-dapp-solana/pull/58))
