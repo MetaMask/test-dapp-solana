@@ -7,8 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add WalletConnect Solana adapter ([#44](https://github.com/MetaMask/test-dapp-solana/pull/44))
+- Integrate MetaMask Connect Solana wallet-standard client ([#47](https://github.com/MetaMask/test-dapp-solana/pull/47))
+- Expose MetaMask readiness in the test dapp header ([#49](https://github.com/MetaMask/test-dapp-solana/pull/49))
+
 ### Fixed
 
+- Fix partial transaction signing ([#45](https://github.com/MetaMask/test-dapp-solana/pull/45))
+- fix(ci): use token exchange for docs publishing ([#51](https://github.com/MetaMask/test-dapp-solana/pull/51))
 - Replace unmaintained `@solana/spl-token` dependency ([#58](https://github.com/MetaMask/test-dapp-solana/pull/58))
 
 ## [0.3.1]
