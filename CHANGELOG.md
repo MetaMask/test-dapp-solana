@@ -17,14 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **BREAKING:** Update Node.js to v26 ([#60](https://github.com/MetaMask/test-dapp-solana/pull/60))
   - Requires Node.js `^22 || ^24 || >=26` (previously `^18.18 || >=20`)
+  - Bump `@lavamoat/allow-scripts` to `^5.1.1` and `@metamask/auto-changelog` to `^6.2.1` for Node.js v26 compatibility
 
 ### Fixed
 
 - Fix partial transaction signing ([#45](https://github.com/MetaMask/test-dapp-solana/pull/45))
 - fix(ci): use token exchange for docs publishing ([#51](https://github.com/MetaMask/test-dapp-solana/pull/51))
 - Replace unmaintained `@solana/spl-token` dependency ([#58](https://github.com/MetaMask/test-dapp-solana/pull/58))
-
-## [0.3.1]
 
 ## [0.3.1]
 

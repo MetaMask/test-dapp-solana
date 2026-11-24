@@ -66,9 +66,9 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
-    "@lavamoat/allow-scripts": "^3.0.4",
+    "@lavamoat/allow-scripts": "^5.1.1",
     "@lavamoat/preinstall-always-fail": "^2.0.0",
-    "@metamask/auto-changelog": "^5.0.1",
+    "@metamask/auto-changelog": "^6.2.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.3.0",
     "@types/bs58": "^4.0.4",
