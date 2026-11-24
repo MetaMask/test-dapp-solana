@@ -3,6 +3,9 @@ name: Build, Lint, and Test
 on:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   prepare:
     name: Prepare
@@ -12,9 +15,10 @@ jobs:
         node-version: [22.x, 24.x, 26.x]
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v1
+        uses: MetaMask/action-checkout-and-setup@v3
         with:
           is-high-risk-environment: false
+          persist-credentials: false
           node-version: ${{ matrix.node-version }}
           cache-node-modules: ${{ matrix.node-version == '26.x' }}
 
@@ -27,9 +31,10 @@ jobs:
         node-version: [26.x]
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v1
+        uses: MetaMask/action-checkout-and-setup@v3
         with:
           is-high-risk-environment: false
+          persist-credentials: false
           node-version: ${{ matrix.node-version }}
       - run: yarn build
       - name: Require clean working directory
@@ -49,9 +54,10 @@ jobs:
         node-version: [26.x]
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v1
+        uses: MetaMask/action-checkout-and-setup@v3
         with:
           is-high-risk-environment: false
+          persist-credentials: false
           node-version: ${{ matrix.node-version }}
       - run: yarn lint
       - name: Validate RC changelog
@@ -77,9 +83,10 @@ jobs:
         node-version: [22.x, 24.x, 26.x]
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v1
+        uses: MetaMask/action-checkout-and-setup@v3
         with:
           is-high-risk-environment: false
+          persist-credentials: false
           node-version: ${{ matrix.node-version }}
       - run: yarn test
       - name: Require clean working directory
@@ -99,9 +106,10 @@ jobs:
         node-version: [22.x, 24.x, 26.x]
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v1
+        uses: MetaMask/action-checkout-and-setup@v3
         with:
           is-high-risk-environment: false
+          persist-credentials: false
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies via Yarn
         run: yarn install --immutable
