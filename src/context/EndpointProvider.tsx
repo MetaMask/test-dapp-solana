@@ -2,6 +2,7 @@ import type { SolanaChain } from '@solana/wallet-standard-chains';
 import { getChainForEndpoint } from '@solana/wallet-standard-util';
 import type React from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
+
 import { RPC_HTTP_ENDPOINT } from '../config';
 
 const LOCAL_STORAGE_KEY = 'rpc_http_endpoint';
@@ -12,26 +13,42 @@ type EndpointContextType = {
   setEndpoint: (value: string) => void;
 };
 
-const EndpointContext = createContext<EndpointContextType | undefined>(undefined);
+const EndpointContext = createContext<EndpointContextType | undefined>(
+  undefined,
+);
 
 /**
- * EndpointProvider component
+ * EndpointProvider component.
+ *
+ * @param props - The component properties.
+ * @param props.children - The child elements to render within the provider.
+ * @returns The endpoint context provider element.
  */
-export const EndpointProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const EndpointProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [endpoint, setEndpoint] = useState<string>(() => {
     return localStorage.getItem(LOCAL_STORAGE_KEY) ?? RPC_HTTP_ENDPOINT;
   });
-  const [network, setNetwork] = useState<SolanaChain>(getChainForEndpoint(endpoint));
+  const [network, setNetwork] = useState<SolanaChain>(
+    getChainForEndpoint(endpoint),
+  );
 
   useEffect(() => {
     setNetwork(getChainForEndpoint(endpoint));
   }, [endpoint]);
 
-  return <EndpointContext.Provider value={{ endpoint, setEndpoint, network }}>{children}</EndpointContext.Provider>;
+  return (
+    <EndpointContext.Provider value={{ endpoint, setEndpoint, network }}>
+      {children}
+    </EndpointContext.Provider>
+  );
 };
 
 /**
- * Custom hook to use the EndpointContext
+ * Custom hook to use the EndpointContext.
+ *
+ * @returns The endpoint context value.
  */
 export const useEndpoint = (): EndpointContextType => {
   const context = useContext(EndpointContext);

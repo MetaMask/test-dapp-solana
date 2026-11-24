@@ -1,20 +1,28 @@
-import { type Adapter, WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import type { Adapter } from '@solana/wallet-adapter-base';
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { type FC, useMemo, useRef } from 'react';
-
-import '@solana/wallet-adapter-react-ui/styles.css';
-import { TestPage } from './pages/TestPage';
-
-import { CoinbaseWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
+import {
+  CoinbaseWalletAdapter,
+  PhantomWalletAdapter,
+  SolflareWalletAdapter,
+} from '@solana/wallet-adapter-wallets';
 import type { SolanaChain } from '@solana/wallet-standard-chains';
+import '@solana/wallet-adapter-react-ui/styles.css';
 import { WalletConnectWalletAdapter } from '@walletconnect/solana-adapter';
+import { useMemo, useRef } from 'react';
+import type { FC } from 'react';
+
 import { EndpointProvider, useEndpoint } from './context/EndpointProvider';
+import { TestPage } from './pages/TestPage';
 
 export function createWalletAdapters(
   endpoint: string,
   network: SolanaChain,
-  origin = window.location.origin,
+  dappOrigin = window.location.origin,
 ): Adapter[] {
   const wallets: Adapter[] = [
     new PhantomWalletAdapter(),
@@ -31,7 +39,7 @@ export function createWalletAdapters(
           metadata: {
             name: 'MetaMask Solana Test DApp',
             description: 'Test DApp for Solana',
-            url: origin,
+            url: dappOrigin,
             icons: [],
           },
         },
@@ -51,10 +59,16 @@ const AppContent: FC = () => {
   const initialEndpoint = useRef(endpoint);
   const initialNetwork = useRef(network);
 
-  const wallets = useMemo(() => createWalletAdapters(initialEndpoint.current, initialNetwork.current), []);
+  const wallets = useMemo(
+    () => createWalletAdapters(initialEndpoint.current, initialNetwork.current),
+    [],
+  );
 
   return (
-    <ConnectionProvider endpoint={endpoint} config={{ commitment: 'confirmed' }}>
+    <ConnectionProvider
+      endpoint={endpoint}
+      config={{ commitment: 'confirmed' }}
+    >
       <WalletProvider wallets={wallets} autoConnect={true}>
         <WalletModalProvider>
           <div

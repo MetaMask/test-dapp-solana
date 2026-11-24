@@ -1,7 +1,9 @@
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
-import { type ChangeEvent, type FC, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
+import type { ChangeEvent, FC } from 'react';
+
 import { dataTestIds, defaultAddresses } from '../test';
 import { Button } from './Button';
 import { TransactionHash } from './TransactionHash';
@@ -9,7 +11,9 @@ import { TransactionHash } from './TransactionHash';
 export const SendSOL: FC = () => {
   const { connection } = useConnection();
   const { publicKey, signTransaction, sendTransaction } = useWallet();
-  const [signedTransaction, setSignedTransaction] = useState<Transaction | undefined>();
+  const [signedTransaction, setSignedTransaction] = useState<
+    Transaction | undefined
+  >();
   const [transactionHash, settransactionHash] = useState<string | undefined>();
   const [toAddress, setToAddress] = useState<string>(defaultAddresses[0]);
   const [loading, setLoading] = useState(false);
@@ -17,9 +21,12 @@ export const SendSOL: FC = () => {
   /**
    * Handle address change.
    */
-  const handleAddressChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setToAddress(event.target.value);
-  }, []);
+  const handleAddressChange = useCallback(
+    (changeEvent: ChangeEvent<HTMLInputElement>) => {
+      setToAddress(changeEvent.target.value);
+    },
+    [],
+  );
 
   /**
    * Get the transaction to sign.
@@ -74,10 +81,10 @@ export const SendSOL: FC = () => {
     try {
       const transaction = await getTransaction();
 
-      const transactionHash = await sendTransaction(transaction, connection);
-      // await connection.confirmTransaction(transactionHash, 'confirmed'); // TODO: Disabled for E2E tests until local RPC is available
+      const signature = await sendTransaction(transaction, connection);
+      // await connection.confirmTransaction(signature, 'confirmed'); // TODO: Disabled for E2E tests until local RPC is available
 
-      settransactionHash(transactionHash);
+      settransactionHash(signature);
     } finally {
       setLoading(false);
     }
@@ -98,7 +105,9 @@ export const SendSOL: FC = () => {
       <div style={{ display: 'flex', gap: '1rem' }}>
         <Button
           data-testid={dataTestIds.testPage.sendSol.signTransaction}
-          onClick={signOnly}
+          onClick={() => {
+            signOnly().catch(console.error);
+          }}
           disabled={!publicKey}
           loading={loading}
         >
@@ -106,7 +115,9 @@ export const SendSOL: FC = () => {
         </Button>
         <Button
           data-testid={dataTestIds.testPage.sendSol.sendTransaction}
-          onClick={signAndSend}
+          onClick={() => {
+            signAndSend().catch(console.error);
+          }}
           disabled={!publicKey}
           loading={loading}
         >
@@ -117,8 +128,13 @@ export const SendSOL: FC = () => {
       {signedTransaction && (
         <>
           <h3>Signed transaction</h3>
-          <pre data-testid={dataTestIds.testPage.sendSol.signedTransaction} className="signedTransactions">
-            {Buffer.from(signedTransaction?.signatures[0].signature!).toString('base64')}
+          <pre
+            data-testid={dataTestIds.testPage.sendSol.signedTransaction}
+            className="signedTransactions"
+          >
+            {Buffer.from(
+              signedTransaction.signatures[0]?.signature ?? new Uint8Array(),
+            ).toString('base64')}
           </pre>
         </>
       )}
@@ -126,7 +142,10 @@ export const SendSOL: FC = () => {
       {transactionHash && (
         <>
           <h3>Transaction</h3>
-          <TransactionHash data-testid={dataTestIds.testPage.sendSol.transactionHash} hash={transactionHash} />
+          <TransactionHash
+            data-testid={dataTestIds.testPage.sendSol.transactionHash}
+            hash={transactionHash}
+          />
         </>
       )}
     </div>

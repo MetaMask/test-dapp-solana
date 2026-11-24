@@ -1,5 +1,6 @@
 import react from '@vitejs/plugin-react-swc';
-import { type UserConfig, defineConfig } from 'vite';
+import { defineConfig } from 'vite';
+import type { UserConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 // https://vite.dev/config/

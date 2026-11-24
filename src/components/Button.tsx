@@ -1,15 +1,15 @@
 import type { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonProps = {
   children: ReactNode;
   loading?: boolean;
-}
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button: FC<ButtonProps> = ({ children, loading, ...props }) => {
   return (
     <button
       {...props}
-      disabled={loading || props.disabled}
+      disabled={loading === true || props.disabled}
       style={{
         backgroundColor: '#512da8',
         color: '#ffffff',

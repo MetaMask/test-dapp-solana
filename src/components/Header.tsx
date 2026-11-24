@@ -1,21 +1,31 @@
 import { useWallet } from '@solana/wallet-adapter-react';
-import { WalletDisconnectButton, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import {
+  WalletDisconnectButton,
+  WalletMultiButton,
+} from '@solana/wallet-adapter-react-ui';
 import { getChainForEndpoint } from '@solana/wallet-standard-util';
-import { type FC, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
+import type { FC } from 'react';
+
 import { useEndpoint } from '../context/EndpointProvider';
 import { useMetaMaskReady } from '../hooks/useMetaMaskReady';
 import { dataTestIds } from '../test';
 import { Account } from './Account';
 
-type HeaderProps = {};
+type HeaderProps = Record<string, never>;
 
 const isValidUrl = (url: string): boolean => {
-  const urlRegex = /^(http:\/\/|https:\/\/)?((localhost(:\d+)?|[\w-]+(\.[\w-]+)+)(:\d+)?)(\/.*)?$/i;
+  const urlRegex =
+    /^(http:\/\/|https:\/\/)?((localhost(:\d+)?|[\w-]+(\.[\w-]+)+)(:\d+)?)(\/.*)?$/iu;
   return urlRegex.test(url);
 };
 
 /**
- * Header component
+ * Header component.
+ * Displays the wallet connection controls and the RPC endpoint editor.
+ *
+ * @param props - The component properties.
+ * @returns The rendered header element.
  */
 export const Header: FC<HeaderProps> = () => {
   const { publicKey, connected } = useWallet();
@@ -26,17 +36,17 @@ export const Header: FC<HeaderProps> = () => {
   const [error, setError] = useState<string | null>(null);
 
   const handleInputChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setTempEndpoint(event.target.value);
-      setShowUpdateButton(event.target.value !== endpoint);
+    (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+      setTempEndpoint(changeEvent.target.value);
+      setShowUpdateButton(changeEvent.target.value !== endpoint);
       setError(null); // Clear error on input change
     },
     [endpoint],
   );
 
   const handleSubmit = useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault(); // Prevent default form submission behavior
+    (submitEvent: React.FormEvent<HTMLFormElement>) => {
+      submitEvent.preventDefault(); // Prevent default form submission behavior
 
       if (!isValidUrl(tempEndpoint)) {
         setError('Invalid URL format.');
@@ -73,7 +83,13 @@ export const Header: FC<HeaderProps> = () => {
         <strong>Enpoint:</strong>
         <form
           onSubmit={handleSubmit}
-          style={{ wordWrap: 'break-word', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}
+          style={{
+            wordWrap: 'break-word',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: '0.5rem',
+          }}
         >
           <input
             id={dataTestIds.testPage.header.endpoint}
@@ -116,13 +132,18 @@ export const Header: FC<HeaderProps> = () => {
       </div>
       <div style={{ wordWrap: 'break-word' }}>
         <strong>MetaMask:</strong>
-        <div data-testid={dataTestIds.testPage.header.metamaskReady}>{isMetaMaskReady ? 'ready' : 'not-ready'}</div>
+        <div data-testid={dataTestIds.testPage.header.metamaskReady}>
+          {isMetaMaskReady ? 'ready' : 'not-ready'}
+        </div>
       </div>
       <div style={{ wordWrap: 'break-word' }}>
         <strong>Wallet:</strong>
         <div>
           {publicKey ? (
-            <Account data-testid={dataTestIds.testPage.header.account} account={publicKey.toBase58()} />
+            <Account
+              data-testid={dataTestIds.testPage.header.account}
+              account={publicKey.toBase58()}
+            />
           ) : (
             'N/A'
           )}

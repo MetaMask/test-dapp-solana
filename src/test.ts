@@ -1,28 +1,34 @@
-type Pathify<T, Prefix extends string = ''> = {
-  [K in keyof T]: T[K] extends true
-    ? `${Prefix extends '' ? '' : `${Prefix}.`}${Extract<K, string>}`
-    : T[K] extends object
-      ? Pathify<T[K], `${Prefix extends '' ? '' : `${Prefix}.`}${Extract<K, string>}`>
+type Pathify<TSpec, TPrefix extends string = ''> = {
+  [TKey in keyof TSpec]: TSpec[TKey] extends true
+    ? `${TPrefix extends '' ? '' : `${TPrefix}.`}${Extract<TKey, string>}`
+    : TSpec[TKey] extends object
+      ? Pathify<
+          TSpec[TKey],
+          `${TPrefix extends '' ? '' : `${TPrefix}.`}${Extract<TKey, string>}`
+        >
       : never;
 };
 
-function pathifyObject<T>(obj: T): Pathify<T> {
-  function inner(obj: any, path = ''): any {
-    const result: any = {};
-    for (const key in obj) {
+function pathifyObject<TSpec>(value: TSpec): Pathify<TSpec> {
+  function inner(
+    input: Record<string, unknown>,
+    path = '',
+  ): Record<string, unknown> {
+    const result: Record<string, unknown> = {};
+    for (const [key, entry] of Object.entries(input)) {
       const fullPath = (path ? `${path}.${key}` : key).toLowerCase();
-      if (obj[key] === true) {
+      if (entry === true) {
         result[key] = fullPath;
-      } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-        result[key] = inner(obj[key], fullPath);
+      } else if (typeof entry === 'object' && entry !== null) {
+        result[key] = inner(entry as Record<string, unknown>, fullPath);
       } else {
-        result[key] = obj[key];
+        result[key] = entry;
       }
     }
     return result;
   }
 
-  return inner(obj) as Pathify<T>;
+  return inner(value as Record<string, unknown>) as Pathify<TSpec>;
 }
 
 /**

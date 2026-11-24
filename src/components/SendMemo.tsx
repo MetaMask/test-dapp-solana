@@ -1,7 +1,14 @@
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { PublicKey, TransactionInstruction, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
-import { type FC, useCallback, useState } from 'react';
+import {
+  PublicKey,
+  TransactionInstruction,
+  TransactionMessage,
+  VersionedTransaction,
+} from '@solana/web3.js';
+import { useCallback, useState } from 'react';
+import type { FC } from 'react';
+
 import { dataTestIds } from '../test';
 import { Button } from './Button';
 import { TransactionHash } from './TransactionHash';
@@ -9,17 +16,24 @@ import { TransactionHash } from './TransactionHash';
 export const SendMemo: FC = () => {
   const { connection } = useConnection();
   const { publicKey, signTransaction, sendTransaction } = useWallet();
-  const [signedTransaction, setSignedTransaction] = useState<VersionedTransaction | undefined>();
+  const [signedTransaction, setSignedTransaction] = useState<
+    VersionedTransaction | undefined
+  >();
   const [transactionHash, settransactionHash] = useState<string | undefined>();
-  const [memo, setMemo] = useState<string>('Hello, from the Solana Wallet Adapter example app!');
+  const [memo, setMemo] = useState<string>(
+    'Hello, from the Solana Wallet Adapter example app!',
+  );
   const [loading, setLoading] = useState(false);
 
   /**
    * Handle memo change.
    */
-  const handleMemoChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setMemo(event.target.value);
-  }, []);
+  const handleMemoChange = useCallback(
+    (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+      setMemo(changeEvent.target.value);
+    },
+    [],
+  );
 
   /**
    * Get the transaction to sign.
@@ -36,7 +50,9 @@ export const SendMemo: FC = () => {
         new TransactionInstruction({
           data: Buffer.from(memo),
           keys: [],
-          programId: new PublicKey('MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr'),
+          programId: new PublicKey(
+            'MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr',
+          ),
         }),
       ],
     }).compileToV0Message();
@@ -73,9 +89,9 @@ export const SendMemo: FC = () => {
     setLoading(true);
     try {
       const transaction = await getTransaction();
-      const transactionHash = await sendTransaction(transaction, connection);
-      // await connection.confirmTransaction(transactionHash, 'confirmed'); // TODO: Disabled for E2E tests until local RPC is available
-      settransactionHash(transactionHash);
+      const signature = await sendTransaction(transaction, connection);
+      // await connection.confirmTransaction(signature, 'confirmed'); // TODO: Disabled for E2E tests until local RPC is available
+      settransactionHash(signature);
     } finally {
       setLoading(false);
     }
@@ -96,7 +112,9 @@ export const SendMemo: FC = () => {
       <div style={{ display: 'flex', gap: '20px' }}>
         <Button
           data-testid={dataTestIds.testPage.sendMemo.signTransaction}
-          onClick={handleSignTransaction}
+          onClick={() => {
+            handleSignTransaction().catch(console.error);
+          }}
           disabled={!publicKey}
           loading={loading}
         >
@@ -105,7 +123,9 @@ export const SendMemo: FC = () => {
 
         <Button
           data-testid={dataTestIds.testPage.sendMemo.sendTransaction}
-          onClick={handleSignAndSendTransaction}
+          onClick={() => {
+            handleSignAndSendTransaction().catch(console.error);
+          }}
           disabled={!publicKey}
           loading={loading}
         >
@@ -116,8 +136,11 @@ export const SendMemo: FC = () => {
       {signedTransaction && (
         <>
           <h3>Signed transaction</h3>
-          <pre data-testid={dataTestIds.testPage.sendMemo.signedTransaction} className="signedTransactions">
-            {Buffer.from(signedTransaction?.signatures[0]!).toString('base64')}
+          <pre
+            data-testid={dataTestIds.testPage.sendMemo.signedTransaction}
+            className="signedTransactions"
+          >
+            {Buffer.from(signedTransaction?.signatures[0]).toString('base64')}
           </pre>
         </>
       )}
@@ -125,7 +148,10 @@ export const SendMemo: FC = () => {
       {transactionHash && (
         <>
           <h3>Transaction</h3>
-          <TransactionHash data-testid={dataTestIds.testPage.sendMemo.transactionHash} hash={transactionHash} />
+          <TransactionHash
+            data-testid={dataTestIds.testPage.sendMemo.transactionHash}
+            hash={transactionHash}
+          />
         </>
       )}
     </div>
