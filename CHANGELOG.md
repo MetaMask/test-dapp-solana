@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Integrate MetaMask Connect Solana wallet-standard client ([#47](https://github.com/MetaMask/test-dapp-solana/pull/47))
 - Expose MetaMask readiness in the test dapp header ([#49](https://github.com/MetaMask/test-dapp-solana/pull/49))
 
+### Changed
+
+- **BREAKING:** Update Node.js to v26 ([#60](https://github.com/MetaMask/test-dapp-solana/pull/60))
+  - Requires Node.js `^22 || ^24 || >=26` (previously `^18.18 || >=20`)
+  - Bump `@lavamoat/allow-scripts` to `^5.1.1` and `@metamask/auto-changelog` to `^6.2.1` for Node.js v26 compatibility
+
 ### Fixed
 
 - Fix partial transaction signing ([#45](https://github.com/MetaMask/test-dapp-solana/pull/45))
