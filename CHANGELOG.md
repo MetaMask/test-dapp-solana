@@ -7,18 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
-
-- Replace unmaintained `@solana/spl-token` dependency ([#58](https://github.com/MetaMask/test-dapp-solana/pull/58))
-
-## [0.4.1]
-
-### Fixed
-
-- fix(ci): use token exchange for docs publishing ([#51](https://github.com/MetaMask/test-dapp-solana/pull/51))
-
-## [0.4.0]
-
 ### Added
 
 - Add WalletConnect Solana adapter ([#44](https://github.com/MetaMask/test-dapp-solana/pull/44))
@@ -28,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fix partial transaction signing ([#45](https://github.com/MetaMask/test-dapp-solana/pull/45))
+- fix(ci): use token exchange for docs publishing ([#51](https://github.com/MetaMask/test-dapp-solana/pull/51))
+- Replace unmaintained `@solana/spl-token` dependency ([#58](https://github.com/MetaMask/test-dapp-solana/pull/58))
 
 ## [0.3.1]
 
@@ -53,9 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[Unreleased]: https://github.com/MetaMask/test-dapp-solana/compare/v0.4.1...HEAD
-[0.4.1]: https://github.com/MetaMask/test-dapp-solana/compare/v0.4.0...v0.4.1
-[0.4.0]: https://github.com/MetaMask/test-dapp-solana/compare/v0.3.1...v0.4.0
+[Unreleased]: https://github.com/MetaMask/test-dapp-solana/compare/v0.3.1...HEAD
 [0.3.1]: https://github.com/MetaMask/test-dapp-solana/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/MetaMask/test-dapp-solana/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/MetaMask/test-dapp-solana/compare/v0.1.0...v0.2.0
