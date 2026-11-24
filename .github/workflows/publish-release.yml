@@ -28,7 +28,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: yarn build
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: publish-release-artifacts-${{ github.sha }}
           retention-days: 4
@@ -48,7 +48,7 @@ jobs:
           persist-credentials: false
           ref: ${{ github.sha }}
       - name: Restore build artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: publish-release-artifacts-${{ github.sha }}
       - name: Dry Run Publish
@@ -75,7 +75,7 @@ jobs:
           persist-credentials: false
           ref: ${{ github.sha }}
       - name: Restore build artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: publish-release-artifacts-${{ github.sha }}
       - name: Publish
@@ -97,8 +97,9 @@ jobs:
     outputs:
       RELEASE_VERSION: ${{ steps.get-release-version.outputs.RELEASE_VERSION }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
+          persist-credentials: false
           ref: ${{ github.sha }}
       - id: get-release-version
         shell: bash
