@@ -15,7 +15,7 @@ jobs:
         node-version: [22.x, 24.x, 26.x]
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v3
+        uses: MetaMask/action-checkout-and-setup@097d47e741dfa9c09ee779a020b8851875e72904 # v3.5.2
         with:
           is-high-risk-environment: false
           persist-credentials: false
@@ -31,7 +31,7 @@ jobs:
         node-version: [26.x]
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v3
+        uses: MetaMask/action-checkout-and-setup@097d47e741dfa9c09ee779a020b8851875e72904 # v3.5.2
         with:
           is-high-risk-environment: false
           persist-credentials: false
@@ -54,7 +54,7 @@ jobs:
         node-version: [26.x]
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v3
+        uses: MetaMask/action-checkout-and-setup@097d47e741dfa9c09ee779a020b8851875e72904 # v3.5.2
         with:
           is-high-risk-environment: false
           persist-credentials: false
@@ -83,7 +83,7 @@ jobs:
         node-version: [22.x, 24.x, 26.x]
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v3
+        uses: MetaMask/action-checkout-and-setup@097d47e741dfa9c09ee779a020b8851875e72904 # v3.5.2
         with:
           is-high-risk-environment: false
           persist-credentials: false
@@ -106,7 +106,7 @@ jobs:
         node-version: [22.x, 24.x, 26.x]
     steps:
       - name: Checkout and setup environment
-        uses: MetaMask/action-checkout-and-setup@v3
+        uses: MetaMask/action-checkout-and-setup@097d47e741dfa9c09ee779a020b8851875e72904 # v3.5.2
         with:
           is-high-risk-environment: false
           persist-credentials: false
