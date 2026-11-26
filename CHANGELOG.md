@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0]
+
+### Uncategorized
+
+- chore: bump workflow actions ([#63](https://github.com/MetaMask/test-dapp-solana/pull/63))
+- chore: bump Yarn to 4.18.0 and harden .yarnrc.yml ([#64](https://github.com/MetaMask/test-dapp-solana/pull/64))
+- chore: bump action-npm-publish to v7 ([#62](https://github.com/MetaMask/test-dapp-solana/pull/62))
+- chore: revert 0.4.0 release
+- chore: revert 0.4.1 release
+- chore: update codeowners teams
+- chore: add networks team to codeowners
+- 0.4.1
+
 ### Added
 
 - Add WalletConnect Solana adapter ([#44](https://github.com/MetaMask/test-dapp-solana/pull/44))
@@ -22,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- fix(ci): pin Node.js to 22
 - Fix partial transaction signing ([#45](https://github.com/MetaMask/test-dapp-solana/pull/45))
 - fix(ci): use token exchange for docs publishing ([#51](https://github.com/MetaMask/test-dapp-solana/pull/51))
 - Replace unmaintained `@solana/spl-token` dependency ([#58](https://github.com/MetaMask/test-dapp-solana/pull/58))
@@ -50,7 +64,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[Unreleased]: https://github.com/MetaMask/test-dapp-solana/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/MetaMask/test-dapp-solana/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/MetaMask/test-dapp-solana/compare/v0.3.1...v1.0.0
 [0.3.1]: https://github.com/MetaMask/test-dapp-solana/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/MetaMask/test-dapp-solana/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/MetaMask/test-dapp-solana/compare/v0.1.0...v0.2.0
