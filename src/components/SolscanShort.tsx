@@ -1,20 +1,27 @@
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
-interface SolscanShortProps {
+type SolscanShortProps = {
   content: string;
   solscanUrl?: string;
-}
+};
 
-export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl, ...props }) => {
+export const SolscanShort: FC<SolscanShortProps> = ({
+  content,
+  solscanUrl,
+  ...props
+}) => {
   const [copied, setCopied] = useState(false);
   const [label, setLabel] = useState('');
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(content).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+  const copyToClipboard = (): void => {
+    navigator.clipboard
+      .writeText(content)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => undefined);
   };
 
   useEffect(() => {
@@ -33,7 +40,12 @@ export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl, ...pr
       }}
     >
       {solscanUrl ? (
-        <a className="content" href={solscanUrl} target="_blank" rel="noopener noreferrer">
+        <a
+          className="content"
+          href={solscanUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {label}
         </a>
       ) : (
@@ -41,10 +53,14 @@ export const SolscanShort: FC<SolscanShortProps> = ({ content, solscanUrl, ...pr
       )}
       <span
         onClick={copyToClipboard}
-        onKeyDown={(e) => e.key === 'Enter' && copyToClipboard()}
+        onKeyDown={(keyEvent) => keyEvent.key === 'Enter' && copyToClipboard()}
         style={{ background: 'none', border: 'none', cursor: 'pointer' }}
       >
-        {copied ? <span style={{ fontSize: '0.8em', color: 'green' }}>Copied!</span> : <span>📋</span>}
+        {copied ? (
+          <span style={{ fontSize: '0.8em', color: 'green' }}>Copied!</span>
+        ) : (
+          <span>📋</span>
+        )}
       </span>
     </div>
   );

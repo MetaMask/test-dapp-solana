@@ -90,7 +90,9 @@ function expectWorkspaceDescription(workspace) {
 
   const { description } = workspace.manifest;
   if (typeof description !== 'string') {
-    workspace.error(`Expected description to be a string, but got ${typeof description}.`);
+    workspace.error(
+      `Expected description to be a string, but got ${typeof description}.`,
+    );
     return;
   }
 
@@ -110,8 +112,12 @@ function expectWorkspaceDependencies(workspace) {
   workspace.pkg.dependencies.forEach((dependency) => {
     // `workspace.pkg` does not have a `devDependencies` field, so we need to
     // check the `manifest` instead.
-    const isDependency = Boolean(workspace.manifest.dependencies?.[dependency.ident]);
-    const isDevDependency = Boolean(workspace.manifest.devDependencies?.[dependency.ident]);
+    const isDependency = Boolean(
+      workspace.manifest.dependencies?.[dependency.ident],
+    );
+    const isDevDependency = Boolean(
+      workspace.manifest.devDependencies?.[dependency.ident],
+    );
 
     if (isDependency && isDevDependency) {
       workspace.unset(`devDependencies.${dependency.ident}`);
@@ -133,8 +139,13 @@ function expectWorkspaceDependencies(workspace) {
  */
 async function expectReadme(workspace, workspaceName) {
   const readme = await getWorkspaceFile(workspace, 'README.md');
-  if (workspaceName !== 'metamask-module-template' && readme.includes('## Template Instructions')) {
-    workspace.error('The README.md contains template instructions. These instructions should be removed.');
+  if (
+    workspaceName !== 'metamask-module-template' &&
+    readme.includes('## Template Instructions')
+  ) {
+    workspace.error(
+      'The README.md contains template instructions. These instructions should be removed.',
+    );
   }
 }
 
@@ -154,14 +165,21 @@ async function expectPullRequestTemplate(workspace, workspaceName) {
     return;
   }
 
-  const pullRequestTemplate = await getWorkspaceFile(workspace, '.github/pull_request_template.md');
+  const pullRequestTemplate = await getWorkspaceFile(
+    workspace,
+    '.github/pull_request_template.md',
+  );
 
   if (!pullRequestTemplate) {
-    workspace.error('The pull_request_template.md is missing. This should be added.');
+    workspace.error(
+      'The pull_request_template.md is missing. This should be added.',
+    );
   }
 
   if (pullRequestTemplate.includes('## Examples')) {
-    workspace.error('The pull_request_template.md contains an examples section. This section should be removed.');
+    workspace.error(
+      'The pull_request_template.md contains an examples section. This section should be removed.',
+    );
   }
 }
 

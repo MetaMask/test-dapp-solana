@@ -1,12 +1,24 @@
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { PublicKey, TransactionInstruction, TransactionMessage, VersionedTransaction } from '@solana/web3.js';
-import { type FC, useCallback, useState } from 'react';
+import {
+  PublicKey,
+  TransactionInstruction,
+  TransactionMessage,
+  VersionedTransaction,
+} from '@solana/web3.js';
+import { useCallback, useState } from 'react';
+import type { FC } from 'react';
+
 import { dataTestIds, defaultAddresses } from '../test';
 import { Button } from './Button';
 
-function getSignatureForPublicKey(transaction: VersionedTransaction, publicKey: PublicKey): Uint8Array | undefined {
-  const signerIndex = transaction.message.staticAccountKeys.findIndex((accountKey) => accountKey.equals(publicKey));
+function getSignatureForPublicKey(
+  transaction: VersionedTransaction,
+  publicKey: PublicKey,
+): Uint8Array | undefined {
+  const signerIndex = transaction.message.staticAccountKeys.findIndex(
+    (accountKey) => accountKey.equals(publicKey),
+  );
 
   if (signerIndex < 0) {
     return undefined;
@@ -18,9 +30,14 @@ function getSignatureForPublicKey(transaction: VersionedTransaction, publicKey: 
 export const PartialSignTransaction: FC = () => {
   const { connection } = useConnection();
   const { publicKey, signTransaction } = useWallet();
-  const [signedTransaction, setSignedTransaction] = useState<VersionedTransaction | undefined>();
+  const [signedTransaction, setSignedTransaction] = useState<
+    VersionedTransaction | undefined
+  >();
   const [loading, setLoading] = useState(false);
-  const signature = signedTransaction && publicKey ? getSignatureForPublicKey(signedTransaction, publicKey) : undefined;
+  const signature =
+    signedTransaction && publicKey
+      ? getSignatureForPublicKey(signedTransaction, publicKey)
+      : undefined;
 
   /**
    * Get the transaction to partially sign.
@@ -42,7 +59,9 @@ export const PartialSignTransaction: FC = () => {
             { pubkey: publicKey, isSigner: true, isWritable: false }, // Connected wallet as signer
             { pubkey: payer, isSigner: true, isWritable: true }, // Payer as signer
           ],
-          programId: new PublicKey('MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr'),
+          programId: new PublicKey(
+            'MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr',
+          ),
         }),
       ],
     }).compileToV0Message();
@@ -72,8 +91,12 @@ export const PartialSignTransaction: FC = () => {
     <div data-testid={dataTestIds.testPage.partialSignTransaction.id}>
       <div style={{ display: 'flex', gap: '20px' }}>
         <Button
-          data-testid={dataTestIds.testPage.partialSignTransaction.signTransaction}
-          onClick={handlePartialSignTransaction}
+          data-testid={
+            dataTestIds.testPage.partialSignTransaction.signTransaction
+          }
+          onClick={() => {
+            handlePartialSignTransaction().catch(console.error);
+          }}
           disabled={!publicKey}
           loading={loading}
         >
@@ -85,10 +108,14 @@ export const PartialSignTransaction: FC = () => {
         <>
           <h3>Partially Signed Transaction</h3>
           <pre
-            data-testid={dataTestIds.testPage.partialSignTransaction.signedTransaction}
+            data-testid={
+              dataTestIds.testPage.partialSignTransaction.signedTransaction
+            }
             className="signedTransactions"
           >
-            {signature ? Buffer.from(signature).toString('base64') : 'No signature found for connected account'}
+            {signature
+              ? Buffer.from(signature).toString('base64')
+              : 'No signature found for connected account'}
           </pre>
         </>
       )}

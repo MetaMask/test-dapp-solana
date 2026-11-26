@@ -1,6 +1,8 @@
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { SystemProgram, Transaction } from '@solana/web3.js';
-import { type FC, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import type { FC } from 'react';
+
 import { WSOL_MINT } from '../config';
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
@@ -33,19 +35,32 @@ export const FaucetTest: FC = () => {
     const balance = await connection.getBalance(publicKey);
     setSolBalance(balance / 1_000_000_000); // Convert lamports to SOL
 
-    const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
-      mint: WSOL_MINT,
-    });
-
-    const wsolAccount = tokenAccounts.value.find(
-      (account) => account.account.data.parsed.info.tokenAmount.uiAmount > 0,
+    const tokenAccounts = await connection.getParsedTokenAccountsByOwner(
+      publicKey,
+      {
+        mint: WSOL_MINT,
+      },
     );
 
-    setWsolBalance(wsolAccount ? wsolAccount.account.data.parsed.info.tokenAmount.uiAmount : 0);
+    // `parsed` is untyped in `@solana/web3.js`, so narrow it to the fields we use.
+    const getUiAmount = (
+      account: (typeof tokenAccounts.value)[number],
+    ): number => {
+      const parsed = account.account.data.parsed as {
+        info: { tokenAmount: { uiAmount: number } };
+      };
+      return parsed.info.tokenAmount.uiAmount;
+    };
+
+    const wsolAccount = tokenAccounts.value.find(
+      (account) => getUiAmount(account) > 0,
+    );
+
+    setWsolBalance(wsolAccount ? getUiAmount(wsolAccount) : 0);
   }, [connection, publicKey]);
 
   useEffect(() => {
-    fetchBalances();
+    fetchBalances().catch(console.error);
   }, [fetchBalances]);
 
   /**
@@ -92,7 +107,9 @@ export const FaucetTest: FC = () => {
       const transaction = new Transaction();
 
       // Test if the account already exists; if not, create it
-      const accountInfo = await connection.getAccountInfo(wsolAssociatedTokenAddress);
+      const accountInfo = await connection.getAccountInfo(
+        wsolAssociatedTokenAddress,
+      );
       if (!accountInfo) {
         transaction.add(
           createAssociatedTokenAccountInstruction(
@@ -140,7 +157,9 @@ export const FaucetTest: FC = () => {
       <div style={{ display: 'flex', gap: '1rem' }}>
         <Button
           data-testid={dataTestIds.testPage.faucet.getSol}
-          onClick={requestAirdrop}
+          onClick={() => {
+            requestAirdrop().catch(console.error);
+          }}
           disabled={!publicKey}
           loading={loading}
         >
@@ -149,7 +168,9 @@ export const FaucetTest: FC = () => {
         {solBalance > 0 && (
           <Button
             data-testid={dataTestIds.testPage.faucet.convertSolToWsol}
-            onClick={convertToWsol}
+            onClick={() => {
+              convertToWsol().catch(console.error);
+            }}
             disabled={!publicKey}
             loading={loading}
           >

@@ -1,10 +1,10 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import type { FC, ReactNode } from 'react';
 
-interface TestProps {
+type TestProps = {
   title: string;
   children: ReactNode;
-}
+};
 
 export const Test: FC<TestProps> = ({ title, children }) => {
   const { connected } = useWallet();
@@ -29,7 +29,9 @@ export const Test: FC<TestProps> = ({ title, children }) => {
       >
         <h3 style={{ margin: 0 }}>{title}</h3>
       </div>
-      <div style={{ padding: '1rem' }}>{connected ? children : <p>Not Connected</p>}</div>
+      <div style={{ padding: '1rem' }}>
+        {connected ? children : <p>Not Connected</p>}
+      </div>
     </div>
   );
 };

@@ -1,53 +1,46 @@
 {
   "name": "@metamask/test-dapp-solana",
   "version": "0.3.1",
-  "license": "ISC",
   "description": "A test dapp for solana",
   "homepage": "https://metamask.github.io/test-dapp-solana",
   "bugs": {
     "url": "https://github.com/MetaMask/test-dapp-solana/issues"
   },
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/test-dapp-solana.git"
   },
+  "files": [
+    "dist/"
+  ],
+  "main": "./index.js",
+  "types": "./dist/index.d.js",
   "exports": {
     ".": "./dist/index.js",
     "./package.json": "./package.json"
   },
-  "main": "./index.js",
-  "types": "./dist/index.d.js",
-  "files": [
-    "dist/"
-  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 8081",
     "build": "tsc -b && vite build && tsc --project tsconfig.test.json --outDir dist",
-    "format": "biome format",
-    "format:fix": "biome format --write",
-    "lint": "yarn lint:biome && yarn format && yarn lint:constraints && yarn lint:misc --check && yarn lint:dependencies --check && yarn lint:changelog",
-    "lint:changelog": "auto-changelog validate --prettier",
+    "lint": "yarn lint:oxlint && yarn lint:constraints && yarn lint:misc --check && yarn lint:dependencies --check && yarn lint:changelog",
+    "lint:changelog": "auto-changelog validate --formatter oxfmt",
     "lint:constraints": "yarn constraints",
-    "lint:dependencies": "depcheck && yarn dedupe",
-    "lint:biome": "biome check",
-    "lint:fix": "yarn lint:biome --fix && yarn format:fix && yarn lint:constraints --fix && yarn lint:misc --write && yarn lint:dependencies && yarn lint:changelog",
-    "lint:misc": "prettier '**/*.json' '**/*.md' '**/*.yml' '!.yarnrc.yml' --ignore-path .gitignore --no-error-on-unmatched-pattern",
+    "lint:dependencies": "yarn lint:dependencies:depcheck && yarn lint:dependencies:dedupe --check",
+    "lint:fix": "yarn lint:oxlint --fix && yarn lint:constraints --fix && yarn lint:misc --write && yarn lint:dependencies:fix && yarn lint:changelog --fix",
+    "lint:misc": "oxfmt --ignore-path .gitignore",
     "prepack": "./scripts/prepack.sh",
     "start": "vite preview --port 8081",
     "test": "vitest",
-    "test:watch": "vitest --watch"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "test:watch": "vitest --watch",
+    "lint:dependencies:depcheck": "depcheck",
+    "lint:dependencies:dedupe": "yarn dedupe",
+    "lint:dependencies:fix": "yarn lint:dependencies:depcheck && yarn lint:dependencies:dedupe",
+    "lint:oxlint": "oxlint ."
   },
   "dependencies": {
     "@metamask/connect-solana": "^2.1.0",
@@ -65,25 +58,45 @@
     "vite-plugin-node-polyfills": "^0.22.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.3",
     "@lavamoat/allow-scripts": "^5.1.1",
     "@lavamoat/preinstall-always-fail": "^2.0.0",
     "@metamask/auto-changelog": "^6.2.1",
+    "@metamask/oxlint-config": "^0.2.0",
+    "@metamask/oxlint-config-browser": "^0.2.0",
+    "@metamask/oxlint-config-commonjs": "^0.2.0",
+    "@metamask/oxlint-config-nodejs": "^0.2.0",
+    "@metamask/oxlint-config-typescript": "^0.2.0",
+    "@metamask/oxlint-config-vitest": "^0.2.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.3.0",
     "@types/bs58": "^4.0.4",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "@vitest/eslint-plugin": "^1.1.4",
     "@yarnpkg/types": "^4.0.1",
     "depcheck": "^1.4.7",
+    "eslint-plugin-n": "^18.3.0",
     "jsdom": "^26.0.0",
-    "prettier": "^3.5.3",
+    "oxfmt": "^0.45.0",
+    "oxlint": "^1.83.0",
+    "oxlint-tsgolint": "^7.0.2002",
     "typescript": "~5.6.2",
     "vite": "^6.0.1",
     "vitest": "3.1.1"
   },
-  "packageManager": "yarn@4.18.0+sha256.fb8b1d20be72a0b544a35bcec4c7ed0ff55a9b173c01f191b02ba164b2051db5",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devEngines": {
     "packageManager": {
       "name": "yarn",
@@ -94,10 +107,7 @@
   "engines": {
     "node": "^22 || ^24 || >=26"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
+  "packageManager": "yarn@4.18.0+sha256.fb8b1d20be72a0b544a35bcec4c7ed0ff55a9b173c01f191b02ba164b2051db5",
   "lavamoat": {
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false,

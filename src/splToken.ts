@@ -1,4 +1,8 @@
-import { PublicKey, SystemProgram, TransactionInstruction } from '@solana/web3.js';
+import {
+  PublicKey,
+  SystemProgram,
+  TransactionInstruction,
+} from '@solana/web3.js';
 
 /**
  * Minimal replacements for the parts of the legacy `@solana/spl-token`
@@ -9,9 +13,13 @@ import { PublicKey, SystemProgram, TransactionInstruction } from '@solana/web3.j
  * See https://github.com/MetaMask/test-dapp-solana/issues/57
  */
 
-export const TOKEN_PROGRAM_ID = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+export const TOKEN_PROGRAM_ID = new PublicKey(
+  'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+);
 
-export const ASSOCIATED_TOKEN_PROGRAM_ID = new PublicKey('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');
+export const ASSOCIATED_TOKEN_PROGRAM_ID = new PublicKey(
+  'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL',
+);
 
 /** Instruction discriminators from the SPL Token program spec. */
 const TRANSFER_CHECKED_INSTRUCTION_INDEX = 12;
@@ -22,12 +30,23 @@ const MINT_ACCOUNT_DATA_LENGTH = 82;
 
 function u64ToLEBytes(value: number | bigint): Uint8Array {
   const bytes = new Uint8Array(8);
-  new DataView(bytes.buffer).setBigUint64(0, BigInt.asUintN(64, BigInt(value)), true);
+  new DataView(bytes.buffer).setBigUint64(
+    0,
+    BigInt.asUintN(64, BigInt(value)),
+    true,
+  );
   return bytes;
 }
 
 /**
  * Derive the associated token account address for a given mint and owner.
+ *
+ * @param mint - The mint of the token account.
+ * @param owner - The owner of the token account.
+ * @param allowOwnerOffCurve - Whether to allow an off-curve owner address.
+ * @param programId - The SPL Token program ID.
+ * @param associatedTokenProgramId - The SPL Associated Token program ID.
+ * @returns The associated token account address.
  */
 export async function getAssociatedTokenAddress(
   mint: PublicKey,
@@ -49,6 +68,14 @@ export async function getAssociatedTokenAddress(
 
 /**
  * Build an instruction to create the associated token account owned by `owner`.
+ *
+ * @param payer - The account that pays for the account creation.
+ * @param associatedToken - The associated token account address.
+ * @param owner - The owner of the token account.
+ * @param mint - The mint of the token account.
+ * @param programId - The SPL Token program ID.
+ * @param associatedTokenProgramId - The SPL Associated Token program ID.
+ * @returns The created instruction.
  */
 export function createAssociatedTokenAccountInstruction(
   payer: PublicKey,
@@ -75,6 +102,16 @@ export function createAssociatedTokenAccountInstruction(
 
 /**
  * Build a TransferChecked instruction (amount validated against mint decimals).
+ *
+ * @param source - The source token account.
+ * @param mint - The token mint.
+ * @param destination - The destination token account.
+ * @param owner - The owner of the source account.
+ * @param amount - The amount of tokens to transfer, in base units.
+ * @param decimals - The decimals of the token mint.
+ * @param multiSigners - Signers to include instead of the owner.
+ * @param programId - The SPL Token program ID.
+ * @returns The created instruction.
  */
 export function createTransferCheckedInstruction(
   source: PublicKey,
@@ -89,7 +126,11 @@ export function createTransferCheckedInstruction(
   const ownerKeys = multiSigners.length
     ? [
         { pubkey: owner, isSigner: false, isWritable: false },
-        ...multiSigners.map((signer) => ({ pubkey: signer, isSigner: true, isWritable: false })),
+        ...multiSigners.map((signer) => ({
+          pubkey: signer,
+          isSigner: true,
+          isWritable: false,
+        })),
       ]
     : [{ pubkey: owner, isSigner: true, isWritable: false }];
 
@@ -113,8 +154,15 @@ export function createTransferCheckedInstruction(
 
 /**
  * Build a SyncNative instruction to credit wrapped SOL with transferred lamports.
+ *
+ * @param account - The wrapped SOL account to sync.
+ * @param programId - The SPL Token program ID.
+ * @returns The created instruction.
  */
-export function createSyncNativeInstruction(account: PublicKey, programId = TOKEN_PROGRAM_ID): TransactionInstruction {
+export function createSyncNativeInstruction(
+  account: PublicKey,
+  programId = TOKEN_PROGRAM_ID,
+): TransactionInstruction {
   return new TransactionInstruction({
     programId,
     keys: [{ pubkey: account, isSigner: false, isWritable: true }],
@@ -138,6 +186,9 @@ export type MintAccountData = {
 
 /**
  * Decode the 82-byte binary layout of an SPL mint account.
+ *
+ * @param data - The raw mint account data.
+ * @returns The decoded mint account fields.
  */
 export function decodeMintAccount(data: Uint8Array): MintAccountData {
   if (data.length !== MINT_ACCOUNT_DATA_LENGTH) {
@@ -150,11 +201,13 @@ export function decodeMintAccount(data: Uint8Array): MintAccountData {
 
   return {
     mintAuthorityOption,
-    mintAuthority: mintAuthorityOption === 0 ? null : new PublicKey(data.slice(4, 36)),
+    mintAuthority:
+      mintAuthorityOption === 0 ? null : new PublicKey(data.slice(4, 36)),
     supply: view.getBigUint64(36, true),
     decimals: data[44],
     isInitialized: data[45] !== 0,
     freezeAuthorityOption,
-    freezeAuthority: freezeAuthorityOption === 0 ? null : new PublicKey(data.slice(50, 82)),
+    freezeAuthority:
+      freezeAuthorityOption === 0 ? null : new PublicKey(data.slice(50, 82)),
   };
 }

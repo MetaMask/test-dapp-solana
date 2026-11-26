@@ -1,6 +1,8 @@
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { type FC, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
+import type { FC } from 'react';
+
 import { dataTestIds } from '../test';
 import { Button } from './Button';
 
@@ -13,9 +15,12 @@ export const SignMessage: FC = () => {
   /**
    * Handle message change.
    */
-  const handleMessageChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setMessage(event.target.value);
-  }, []);
+  const handleMessageChange = useCallback(
+    (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+      setMessage(changeEvent.target.value);
+    },
+    [],
+  );
 
   /**
    * Handle sign message button click.
@@ -50,7 +55,9 @@ export const SignMessage: FC = () => {
       </div>
       <Button
         data-testid={dataTestIds.testPage.signMessage.signMessage}
-        onClick={handleSigneMessage}
+        onClick={() => {
+          handleSigneMessage().catch(console.error);
+        }}
         disabled={!publicKey}
         loading={loading}
       >
@@ -60,7 +67,10 @@ export const SignMessage: FC = () => {
       {signedMessage && (
         <>
           <h3>Signed Message</h3>
-          <pre data-testid={dataTestIds.testPage.signMessage.signedMessage} className="signedTransactions">
+          <pre
+            data-testid={dataTestIds.testPage.signMessage.signedMessage}
+            className="signedTransactions"
+          >
             {signedMessage}
           </pre>
         </>
