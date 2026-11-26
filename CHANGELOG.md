@@ -9,17 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0]
 
-### Uncategorized
-
-- chore: bump workflow actions ([#63](https://github.com/MetaMask/test-dapp-solana/pull/63))
-- chore: bump Yarn to 4.18.0 and harden .yarnrc.yml ([#64](https://github.com/MetaMask/test-dapp-solana/pull/64))
-- chore: bump action-npm-publish to v7 ([#62](https://github.com/MetaMask/test-dapp-solana/pull/62))
-- chore: revert 0.4.0 release
-- chore: revert 0.4.1 release
-- chore: update codeowners teams
-- chore: add networks team to codeowners
-- 0.4.1
-
 ### Added
 
 - Add WalletConnect Solana adapter ([#44](https://github.com/MetaMask/test-dapp-solana/pull/44))
